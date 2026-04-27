@@ -37,6 +37,7 @@ html[data-mode="raat"] .about-illus          { background-image:url("Illustratio
 /* ── BRAHMAMUHURTA — Warm morning light ── */
 [data-mode="brahmamuhurta"] {
   --bg:#F6EFE3; --bg2:#EDE5D4; --surf:rgba(255,252,245,0.82); --bor:rgba(28,20,8,0.08);
+  --nav-bg-rgb:246,239,227;
   --t1:#1C1408; --t2:#5A4028; --t3:#8A6840;
   --ac:#A86C0E; --ac2:#7FA060; --acd:rgba(168,108,14,0.10); --acb:rgba(168,108,14,0.25);
   --pr:168; --pg:108; --pb:14;
@@ -49,6 +50,7 @@ html[data-mode="raat"] .about-illus          { background-image:url("Illustratio
 /* ── DHOOP — Vivid afternoon ── */
 [data-mode="dhoop"] {
   --bg:#FAFCEE; --bg2:#EEF5D8; --surf:rgba(255,255,250,0.80); --bor:rgba(16,14,4,0.08);
+  --nav-bg-rgb:250,252,238;
   --t1:#100E04; --t2:#4A3A14; --t3:#7A6830;
   --ac:#3E9810; --ac2:#2A8FD4; --acd:rgba(62,152,16,0.10); --acb:rgba(62,152,16,0.25);
   --pr:62; --pg:152; --pb:16;
@@ -60,6 +62,7 @@ html[data-mode="raat"] .about-illus          { background-image:url("Illustratio
 /* ── SANDHYA — Warm dark amber evening ── */
 [data-mode="sandhya"] {
   --bg:#100A06; --bg2:#1E1208; --surf:rgba(255,255,255,0.042); --bor:rgba(240,180,100,0.09);
+  --nav-bg-rgb:16,10,6;
   --t1:#F5ECD8; --t2:#C09870; --t3:#806040;
   --ac:#E06018; --ac2:#A04EC8; --acd:rgba(224,96,24,0.13); --acb:rgba(224,96,24,0.32);
   --pr:224; --pg:96; --pb:24;
@@ -71,6 +74,7 @@ html[data-mode="raat"] .about-illus          { background-image:url("Illustratio
 /* ── RAAT — Deep cobalt night ── */
 [data-mode="raat"] {
   --bg:#05070D; --bg2:#0A0C1A; --surf:rgba(255,255,255,0.038); --bor:rgba(255,255,255,0.07);
+  --nav-bg-rgb:5,7,13;
   --t1:#E8EEF8; --t2:#9AAAC4; --t3:#606E88;
   --ac:#C89050; --ac2:#4A72C4; --acd:rgba(200,144,80,0.12); --acb:rgba(200,144,80,0.30);
   --pr:200; --pg:144; --pb:80;
@@ -168,33 +172,128 @@ html[data-mode="raat"] .intro-birds{display:none}
 /* ============================================================
    NAV
 ============================================================ */
-.nav{position:fixed;top:0;left:0;right:0;z-index:800;padding:22px var(--pad);display:flex;justify-content:space-between;align-items:center}
-.nav::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to bottom,var(--bg) 40%,transparent);opacity:.92;transition:background var(--dur) ease}
-.nav-name{font-family:var(--font-d);font-size:22px;font-weight:700;letter-spacing:-.01em;color:var(--t1);transition:color var(--dur) ease,opacity .2s;white-space:nowrap}
+/* ── NAV — full width bg, inner container matches content grid ── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:800;
+  transition:background var(--dur) ease,border-color .3s ease;
+}
+/* Default: subtle surface — never fully transparent */
+.nav-inner{
+  max-width:1240px;margin:0 auto;
+  padding:20px 56px;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:padding .3s ease;
+}
+/* Frosted background layer */
+.nav-bg{
+  position:absolute;inset:0;z-index:-1;
+  background:rgba(246,239,227,0);
+  backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);
+  border-bottom:0.5px solid transparent;
+  transition:background .35s ease,backdrop-filter .35s ease,-webkit-backdrop-filter .35s ease,border-color .35s ease;
+}
+/* Scrolled state — JS adds .scrolled class */
+.nav.scrolled .nav-bg{
+  background:rgba(var(--nav-bg-rgb),0.97);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom-color:var(--bor);
+}
+.nav.scrolled .nav-inner{padding:14px 56px}
+
+/* Adaptive text — JS adds .nav-light class when over dark sections */
+.nav-name{
+  font-family:var(--font-d);font-size:22px;font-weight:700;letter-spacing:-.01em;
+  color:var(--t1);
+  transition:color .3s ease,font-size .3s ease,opacity .2s;
+  white-space:nowrap;
+}
+.nav.nav-light .nav-name{color:#F5ECD8}
+.nav.scrolled .nav-name{font-size:19px}
 .nav-name:hover{opacity:.72}
-.nav-right{display:flex;align-items:center;gap:36px}
-.nav-links{display:flex;gap:28px}
-.nav-links a{font-family:var(--font-b);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);position:relative;transition:color .2s}
-.nav-links a::after{content:"";position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--t1);transition:width .25s var(--ease)}
-.nav-links a:hover,.nav-links a:focus-visible{color:var(--t1);outline:none}
+
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-links{display:flex;gap:28px;align-items:center}
+
+.nav-links a{
+  font-family:var(--font-b);font-size:11px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--t2);
+  padding:6px 0;
+  position:relative;transition:color .2s ease,opacity .2s ease;
+}
+.nav.nav-light .nav-links a{color:rgba(245,236,216,0.72)}
+.nav-links a::after{
+  content:"";position:absolute;bottom:-1px;left:0;width:0;height:1.5px;
+  background:var(--ac);transition:width .25s var(--ease);
+}
+.nav.nav-light .nav-links a::after{background:#F5ECD8}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--ac);outline:none}
+.nav.nav-light .nav-links a:hover,.nav.nav-light .nav-links a:focus-visible{color:#fff}
 .nav-links a:hover::after,.nav-links a:focus-visible::after{width:100%}
-.nav-music{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--bor);color:var(--t3);font-size:16px;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s,background var(--dur) ease,box-shadow .3s}
-.nav-music:hover,.nav-music:focus-visible{border-color:var(--ac);color:var(--t1);outline:none}
-.nav-music.playing{border-color:var(--ac);color:var(--ac);background:var(--acd);box-shadow:0 0 0 3px rgba(var(--pr),var(--pg),var(--pb),.15)}
-.nav-ham{display:none;flex-direction:column;gap:5.5px;width:44px;height:44px;padding:12px 5px;color:var(--t1)}
+/* Active section link */
+.nav-links a.nav-active{color:var(--ac)}
+.nav.nav-light .nav-links a.nav-active{color:#fff}
+.nav-links a.nav-active::after{width:100%}
+/* Dim non-active on hover */
+.nav-links:hover a:not(:hover){opacity:.55}
+
+/* Divider between links and music */
+.nav-divider{
+  width:1px;height:16px;
+  background:var(--bor);
+  opacity:.7;
+  transition:background var(--dur) ease;
+}
+.nav.nav-light .nav-divider{background:rgba(245,236,216,0.25)}
+
+.nav-music{
+  width:44px;height:44px;border-radius:50%;
+  border:1.5px solid var(--bor);
+  color:var(--t3);font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .2s,color .2s,background var(--dur) ease,box-shadow .3s;
+  flex-shrink:0;
+}
+.nav.nav-light .nav-music{border-color:rgba(245,236,216,0.3);color:rgba(245,236,216,0.6)}
+.nav-music:hover,.nav-music:focus-visible{border-color:var(--ac);color:var(--ac);outline:none}
+.nav-music.playing{
+  border-color:var(--ac);color:var(--ac);
+  background:var(--acd);
+  box-shadow:0 0 0 3px rgba(var(--pr),var(--pg),var(--pb),.15);
+}
+
+/* Mobile hamburger — 44×44 tap target */
+.nav-ham{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  width:44px;height:44px;padding:10px 6px;
+  color:var(--t1);flex-shrink:0;
+}
+.nav.nav-light .nav-ham{color:#F5ECD8}
 .nav-ham span{display:block;height:1.5px;width:100%;background:currentColor;border-radius:2px;transition:transform .3s var(--ease),opacity .3s}
-.nav-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-ham.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .nav-ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
-.nav-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.nav-mob{display:none;position:fixed;inset:0;z-index:790;background:rgba(4,6,14,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);flex-direction:column;align-items:center;justify-content:center;gap:44px}
+.nav-ham.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* Mobile overlay */
+.nav-mob{
+  display:none;position:fixed;inset:0;z-index:790;
+  background:rgba(4,6,14,.97);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  flex-direction:column;align-items:center;justify-content:center;gap:44px;
+}
 .nav-mob.open{display:flex}
-.nav-mob a{font-family:var(--font-d);font-size:38px;font-weight:700;color:rgba(255,255,255,.82);transition:color .2s}
+.nav-mob a{
+  font-family:var(--font-d);font-size:clamp(28px,6vw,38px);
+  font-weight:700;color:rgba(255,255,255,.82);transition:color .2s;
+  padding:8px 0;/* extra tap area */
+}
 .nav-mob a:hover{color:#fff}
 
 /* ============================================================
    HERO
 ============================================================ */
-.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 var(--pad) 68px;overflow:visible}
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 68px;overflow:visible}
+.hero-content{width:100%;padding:0}
 .blob-a,.blob-b{position:absolute;border-radius:50%;pointer-events:none;transition:background var(--dur) ease}
 .blob-a{width:60vw;height:60vw;max-width:700px;max-height:700px;background:radial-gradient(circle,var(--ga) 0%,transparent 68%);top:-18%;right:-10%;animation:ba 14s ease-in-out infinite alternate}
 .blob-b{width:48vw;height:48vw;max-width:580px;max-height:580px;background:radial-gradient(circle,var(--gb) 0%,transparent 68%);bottom:-10%;left:-6%;animation:bb 18s ease-in-out infinite alternate}
@@ -351,28 +450,109 @@ footer{background:var(--bf);padding:20px var(--pad);text-align:center;position:r
 footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255,255,255,.38);letter-spacing:.06em}
 
 /* ============================================================
-   RESPONSIVE
+   RESPONSIVE — 6 breakpoints, nothing breaks at any size
 ============================================================ */
-@media(max-width:768px){
-  :root{--pad:var(--pad-m)}
+
+/* XL — 1440px+ wide desktop */
+@media(min-width:1440px){
+  .nav-inner{padding:20px 56px}
+  .nav.scrolled .nav-inner{padding:14px 56px}
+  .si{padding:0 56px}
+  .hero-content{padding:0 56px}
+  .about-content{padding:64px 56px 108px}
+  .connect{padding:100px 56px 108px}
+  footer{padding:20px 56px}
+}
+
+/* LG — 1280–1439px standard desktop */
+@media(min-width:1280px) and (max-width:1439px){
+  .nav-inner{padding:20px 48px}
+  .nav.scrolled .nav-inner{padding:14px 48px}
+  .si{padding:0 48px}
+  .hero-content{padding:0 48px}
+  .about-content{padding:64px 48px 108px}
+  .connect{padding:100px 48px 108px}
+  footer{padding:20px 48px}
+}
+
+/* MD — 1024–1279px small desktop, iPad landscape */
+@media(min-width:1024px) and (max-width:1279px){
+  .nav-inner{padding:18px 40px}
+  .nav.scrolled .nav-inner{padding:12px 40px}
+  .si{padding:0 40px}
+  .hero-content{padding:0 40px}
+  .hero-h1{font-size:clamp(44px,6.5vw,88px)}
+  .about-content{padding:56px 40px 88px}
+  .connect{padding:88px 40px 96px}
+  footer{padding:18px 40px}
+}
+
+/* SM — 768–1023px iPad portrait, large tablets */
+@media(min-width:768px) and (max-width:1023px){
+  .nav-inner{padding:16px 32px}
+  .nav.scrolled .nav-inner{padding:12px 32px}
+  .nav-name{font-size:20px}
+  .nav.scrolled .nav-name{font-size:18px}
+  .si{padding:0 32px}
+  .hero-content{padding:0 32px}
+  .hero{padding:0 0 56px}
+  .hero-h1{font-size:clamp(40px,7vw,72px)}
+  .hero-scroll{right:32px}
+  .sec{padding:88px 32px}
+  .cs-grid{grid-template-columns:1fr 1fr;gap:16px}
+  .ai-card{padding:28px}
+  .about-illus{height:360px}
+  .about-content{padding:48px 32px 80px}
+  .about-grid{grid-template-columns:1fr;gap:0}
+  .connect{padding:80px 32px 88px}
+  .con-links{gap:24px}
+  footer{padding:18px 32px}
+}
+
+/* XS — 480–767px large phones */
+@media(max-width:767px){
   body{cursor:auto}
   .c-dot,.c-ring,.c-glow,.c-pill{display:none}
-  .nav{padding:18px var(--pad-m)}
   .nav-right{display:none}
   .nav-ham{display:flex}
-  .hero{padding:0 var(--pad-m) 52px}
-  .hero-h1{font-size:clamp(38px,10vw,54px)}
-  .sec{padding:80px var(--pad-m)}
+  .nav-inner{padding:14px 24px}
+  .nav.scrolled .nav-inner{padding:10px 24px}
+  .nav-name{font-size:18px}
+  .nav.scrolled .nav-name{font-size:17px}
+  .si{padding:0 24px}
+  .hero-content{padding:0 24px}
+  .hero{padding:0 0 52px}
+  .hero-h1{font-size:clamp(32px,9vw,48px)}
+  .hero-scroll{right:24px}
+  .sec{padding:72px 24px}
   .cs-grid{grid-template-columns:1fr}
-  .ai-track{flex-direction:column}
-  .ai-card{flex:0 0 auto}
+  .ai-track{gap:16px}
+  .ai-card{flex:0 0 100%;padding:24px}
   .about-illus{height:260px}
-  .about-content{padding:48px var(--pad-m) 80px}
+  .about-content{padding:40px 24px 72px}
   .about-grid{grid-template-columns:1fr;gap:0}
-  .connect{padding:80px var(--pad-m) 88px}
-  .con-links{gap:20px;flex-wrap:wrap}
-  footer{padding:18px var(--pad-m)}
-  .hero-scroll{right:var(--pad-m)}
+  .hobby-slide{flex:0 0 160px;height:284px}
+  .connect{padding:72px 24px 80px}
+  .con-links{gap:16px;flex-wrap:wrap}
+  footer{padding:16px 24px}
+  .nav-mob a{font-size:clamp(24px,7vw,34px)}
+}
+
+/* XXS — 320–479px small phones iPhone SE */
+@media(max-width:479px){
+  .nav-inner{padding:12px 16px}
+  .nav.scrolled .nav-inner{padding:10px 16px}
+  .nav-name{font-size:16px}
+  .si{padding:0 16px}
+  .hero-content{padding:0 16px}
+  .hero-h1{font-size:clamp(28px,8.5vw,38px)}
+  .hero-scroll{right:16px}
+  .sec{padding:64px 16px}
+  .hero-sub2{font-size:13px}
+  .hobby-slide{flex:0 0 150px;height:266px}
+  .about-illus{height:220px}
+  .connect{padding:64px 16px 72px}
+  footer{padding:14px 16px}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.3s !important}
@@ -421,20 +601,26 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
 <!-- SITE -->
 <div id="site">
   <nav class="nav" id="nav" aria-label="Main navigation">
-    <a href="/" class="nav-name">Abhimanyu Arya</a>
-    <div class="nav-right">
-      <ul class="nav-links">
-        <li><a href="#work">Work</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="Abhimanyu_Resume.pdf" download>Resume</a></li>
-      </ul>
-      <button class="nav-music" id="navMusic" aria-label="Toggle ambient music" aria-pressed="false">
-        <i class="ph-thin ph-music-note" aria-hidden="true" id="navMIcon"></i>
+    <div class="nav-bg" aria-hidden="true"></div>
+    <div class="nav-inner">
+      <a href="/" class="nav-name" aria-label="Abhimanyu Arya — back to top">Abhimanyu Arya</a>
+      <div class="nav-right">
+        <ul class="nav-links" role="list">
+          <li><a href="#work" data-section="work">Work</a></li>
+          <li><a href="#about" data-section="about">About</a></li>
+          <li><a href="Abhimanyu_Resume.pdf" download aria-label="Download Resume PDF">Resume</a></li>
+        </ul>
+        <div class="nav-divider" aria-hidden="true"></div>
+        <button class="nav-music" id="navMusic" aria-label="Toggle ambient music" aria-pressed="false">
+          <i class="ph-thin ph-music-note" aria-hidden="true" id="navMIcon"></i>
+        </button>
+      </div>
+      <button class="nav-ham" id="navHam" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navMob">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
       </button>
     </div>
-    <button class="nav-ham" id="navHam" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
   </nav>
   <div class="nav-mob" id="navMob" role="dialog" aria-modal="true" aria-label="Navigation">
     <a href="#work" onclick="closeMob()">Work</a>
@@ -445,9 +631,10 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
 
   <main id="main">
     <!-- HERO -->
-    <section class="hero" id="hero" aria-label="Introduction">
+    <section class="hero" id="hero" aria-label="Introduction" data-nav="auto">
       <div class="blob-a" aria-hidden="true"></div>
       <div class="blob-b" aria-hidden="true"></div>
+      <div class="si hero-content">
       <p class="hero-label" id="hLabel">Senior Product Designer &nbsp;·&nbsp; Bangalore</p>
       <h1 class="hero-h1" id="hH1">
         <span class="ww"><span class="wi">Making</span></span>
@@ -457,6 +644,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
       </h1>
       <p class="hero-sub1" id="hSub1">I sit with a problem until the solution feels <em>inevitable.</em><br>Then, I make it beautiful.</p>
       <p class="hero-sub2" id="hSub2">My work is about turning friction into flow — building products people actually enjoy using and experiences that drive business growth.</p>
+      </div><!-- /hero-content -->
       <div class="hero-scroll" id="hScroll" aria-hidden="true">
         <span class="hero-scroll-text">Scroll</span>
         <span class="hero-scroll-line"></span>
@@ -464,7 +652,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
     </section>
 
     <!-- WORK -->
-    <section class="sec work" id="work" aria-label="Selected work">
+    <section class="sec work" id="work" aria-label="Selected work" data-nav="auto">
       <div class="si">
         <span class="s-tag rv">Selected Work</span>
         <h2 class="s-h2 rv d1">Two problems.<br>Real <em>impact.</em></h2>
@@ -506,7 +694,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
     </section>
 
     <!-- AI -->
-    <section class="sec ai-sec" id="ai" aria-label="How I work with AI">
+    <section class="sec ai-sec" id="ai" aria-label="How I work with AI" data-nav="auto">
       <div class="si">
         <span class="s-tag rv">How I Work With AI</span>
         <h2 class="s-h2 rv d1">I use AI to ship<br>better work, <em>faster.</em></h2>
@@ -529,7 +717,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
     </section>
 
     <!-- ABOUT -->
-    <section class="about" id="about" aria-label="About Abhimanyu">
+    <section class="about" id="about" aria-label="About Abhimanyu" data-nav="dark">
       <div class="about-illus rv" role="img" aria-label="Illustration of Abhimanyu at his desk — the scene changes with time of day"></div>
       <div class="about-content">
         <span class="s-tag rv">About</span>
@@ -547,7 +735,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
     </section>
 
     <!-- HOBBIES -->
-    <section class="sec hobbies" id="hobbies" aria-label="Life beyond design">
+    <section class="sec hobbies" id="hobbies" aria-label="Life beyond design" data-nav="auto">
       <div class="si">
         <span class="s-tag rv">When I am not designing</span>
         <h2 class="s-h2 rv d1">A life <em>fully lived.</em></h2>
@@ -597,7 +785,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
     </section>
 
     <!-- CONNECT -->
-    <section class="connect" id="connect" aria-label="Get in touch">
+    <section class="connect" id="connect" aria-label="Get in touch" data-nav="dark">
       <div class="si">
         <span class="con-tag rv">Let us connect</span>
         <h2 class="con-h2 rv d1">Open to what<br>comes <em>next.</em></h2>
@@ -982,6 +1170,61 @@ function afterIntro(){
   if(ham&&mob){
     ham.addEventListener('click',function(){var o=mob.classList.toggle('open');ham.classList.toggle('open',o);ham.setAttribute('aria-expanded',o?'true':'false');document.body.style.overflow=o?'hidden':'';});
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&mob.classList.contains('open')){closeMob();ham.focus();}});
+  }
+
+  /* ── NAV scroll + scroll-spy + adaptive ── */
+  var nav=document.getElementById('nav');
+  if(nav){
+    var scrolled=false;
+    window.addEventListener('scroll',function(){
+      var sy=window.scrollY||window.pageYOffset;
+      if(sy>80&&!scrolled){nav.classList.add('scrolled');scrolled=true;}
+      else if(sy<=80&&scrolled){nav.classList.remove('scrolled');scrolled=false;}
+    },{passive:true});
+
+    /* Adaptive nav text — detect dark vs light sections */
+    var sections=document.querySelectorAll('[data-nav]');
+    var navLinks=document.querySelectorAll('.nav-links a[data-section]');
+
+    /* Determine if section is dark based on mode + section */
+    function isDark(el){
+      var attr=el.getAttribute('data-nav');
+      if(attr==='dark') return true;
+      if(attr==='light') return false;
+      /* auto — check mode */
+      var mode=document.documentElement.getAttribute('data-mode');
+      var darkModes=['sandhya','raat'];
+      /* connect is always dark */
+      if(el.id==='connect') return true;
+      return darkModes.indexOf(mode)>-1;
+    }
+
+    /* IntersectionObserver for adaptive text */
+    if('IntersectionObserver' in window){
+      var navH=72;
+      var adaptObs=new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting&&entry.boundingClientRect.top<=navH+10){
+            if(isDark(entry.target)){nav.classList.add('nav-light');}
+            else{nav.classList.remove('nav-light');}
+          }
+        });
+      },{threshold:0,rootMargin:'-'+navH+'px 0px -80% 0px'});
+      sections.forEach(function(s){adaptObs.observe(s);});
+
+      /* Scroll-spy — active section link */
+      var spyObs=new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            var id=entry.target.id;
+            navLinks.forEach(function(a){
+              a.classList.toggle('nav-active',a.getAttribute('data-section')===id);
+            });
+          }
+        });
+      },{threshold:0.4});
+      document.querySelectorAll('section[id]').forEach(function(s){spyObs.observe(s);});
+    }
   }
 }
 function closeMob(){var ham=document.getElementById('navHam'),mob=document.getElementById('navMob');if(!ham||!mob)return;mob.classList.remove('open');ham.classList.remove('open');ham.setAttribute('aria-expanded','false');document.body.style.overflow='';}
