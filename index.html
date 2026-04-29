@@ -433,7 +433,7 @@ html[data-mode="raat"] .intro-birds{display:none}
 ============================================================ */
 .hobby-tabs{display:flex;border-bottom:1px solid var(--bor);margin-bottom:40px;overflow-x:auto;-webkit-overflow-scrolling:touch;transition:border-color var(--dur) ease;scrollbar-width:none}
 .hobby-tabs::-webkit-scrollbar{display:none}
-.hobby-tab{font-family:var(--font-b);font-size:14px;font-weight:400;letter-spacing:.03em;color:var(--t2);padding:12px 26px;border-bottom:2px solid transparent;margin-bottom:-1px;opacity:.45;white-space:nowrap;min-height:44px;display:flex;align-items:center;transition:opacity .2s,border-color .2s,font-weight .2s,color var(--dur) ease}
+.hobby-tab{font-family:var(--font-b);font-size:14px;font-weight:400;letter-spacing:.03em;color:var(--t2);padding:12px 26px;border-bottom:2px solid transparent;margin-bottom:-1px;opacity:.45;white-space:nowrap;min-height:44px;display:flex;align-items:center;transition:opacity .2s,border-color .2s,font-weight .2s,color var(--dur) ease,background .2s}
 .hobby-tab.on{opacity:1;font-weight:600;border-bottom-color:var(--ac);color:var(--ac)}
 .hobby-tab:hover{opacity:.75}
 .hobby-panel{display:none}
@@ -447,6 +447,46 @@ html[data-mode="raat"] .intro-birds{display:none}
 .hobby-slide{flex:0 0 180px;height:320px;border-radius:14px;overflow:hidden;background:var(--surf);border:1px solid var(--bor);transition:transform .4s var(--ease)}
 .hobby-slide img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
 .hobby-slide:hover img{transform:scale(1.05)}
+
+/* ── Mobile hobbies — wrapped tabs + manual swipe ── */
+@media(max-width:767px){
+  .hobby-tabs{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+    border-bottom:none;
+    margin-bottom:32px;
+    overflow-x:visible;
+  }
+  .hobby-tab{
+    min-width:100px;
+    min-height:44px;
+    border:1.5px solid var(--bor);
+    border-radius:100px;
+    padding:10px 20px;
+    margin-bottom:0;
+  }
+  .hobby-tab.on{
+    border-color:var(--ac);
+    background:var(--acd);
+  }
+  .hobby-carousel{
+    overflow-x:scroll;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .hobby-carousel::-webkit-scrollbar{display:none}
+  .hobby-track{
+    animation:none;
+    gap:12px;
+  }
+  .hobby-slide{
+    scroll-snap-align:center;
+    flex:0 0 160px;
+    height:284px;
+  }
+}
 
 /* ============================================================
    CONNECT — mode-reactive, always pops
@@ -781,54 +821,125 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
     </section>
 
     <!-- HOBBIES -->
-    <section class="sec hobbies" id="hobbies" aria-label="Life beyond design" data-nav="auto">
-      <div class="si">
-        <span class="s-tag rv">When I am not designing</span>
-        <h2 class="s-h2 rv d1">A life <em>fully lived.</em></h2>
-        <div class="hobby-tabs rv d2" role="tablist">
-          <button class="hobby-tab on" role="tab" aria-selected="true" id="t-cooking" aria-controls="p-cooking">Cooking</button>
-          <button class="hobby-tab" role="tab" aria-selected="false" id="t-travel" aria-controls="p-travel">Travel</button>
-          <button class="hobby-tab" role="tab" aria-selected="false" id="t-photography" aria-controls="p-photography">Photography</button>
-          <button class="hobby-tab" role="tab" aria-selected="false" id="t-sketching" aria-controls="p-sketching">Sketching</button>
-          <button class="hobby-tab" role="tab" aria-selected="false" id="t-life" aria-controls="p-life">Life</button>
-        </div>
-        <div class="hobby-panel on" id="p-cooking" role="tabpanel" aria-labelledby="t-cooking">
-          <p class="hobby-intro">Food is how I say I love you. I cook for the people who matter most. I am also quietly building a dessert brand — because why not turn love into a product.</p>
-          <div class="hobby-carousel"><div class="hobby-track">
-            <div class="hobby-slide"><img src="hobbies/Cooking 1.png" alt="Cooking" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Cooking 2.png" alt="Cooking" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Cooking 3.png" alt="Cooking" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Cooking 4.png" alt="Cooking" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Cooking 5.png" alt="Cooking" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Cooking 6.png" alt="Cooking" loading="lazy"></div>
-            <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Cooking 1.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Cooking 2.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Cooking 3.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Cooking 4.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Cooking 5.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Cooking 6.png" alt="" loading="lazy"></div>
-          </div></div>
-        </div>
-        <div class="hobby-panel" id="p-travel" role="tabpanel" aria-labelledby="t-travel">
-          <p class="hobby-intro">New places, new people, new ways of seeing. Every trip changes something in how I understand the world — and eventually, how I design for it.</p>
-          <div class="hobby-carousel"><div class="hobby-track">
-            <div class="hobby-slide"><img src="hobbies/Travel 1.png" alt="Travel" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Travel 2.png" alt="Travel" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Travel 3.png" alt="Travel" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Travel 4.png" alt="Travel" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Travel 5.png" alt="Travel" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Travel 6.png" alt="Travel" loading="lazy"></div>
-            <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Travel 1.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Travel 2.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Travel 3.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Travel 4.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Travel 5.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Travel 6.png" alt="" loading="lazy"></div>
-          </div></div>
-        </div>
-        <div class="hobby-panel" id="p-photography" role="tabpanel" aria-labelledby="t-photography">
-          <p class="hobby-intro">I see the world before I shoot it. Photography taught me to slow down and find the frame that tells the whole story. It changed how I observe.</p>
-          <div class="hobby-carousel"><div class="hobby-track">
-            <div class="hobby-slide"><img src="hobbies/Photography 1.png" alt="Photography" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Photography 2.png" alt="Photography" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Photography 3.png" alt="Photography" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Photography 4.png" alt="Photography" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Photography 5.png" alt="Photography" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Photography 6.png" alt="Photography" loading="lazy"></div>
-            <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Photography 1.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Photography 2.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Photography 3.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Photography 4.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Photography 5.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Photography 6.png" alt="" loading="lazy"></div>
-          </div></div>
-        </div>
-        <div class="hobby-panel" id="p-sketching" role="tabpanel" aria-labelledby="t-sketching">
-          <p class="hobby-intro">I was an artist before I was a designer. The sketchbook never went away. My best thinking still happens on paper before it ever touches a screen.</p>
-          <div class="hobby-carousel"><div class="hobby-track">
-            <div class="hobby-slide"><img src="hobbies/Sketching 1.png" alt="Sketching" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Sketching 2.png" alt="Sketching" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Sketching 3.png" alt="Sketching" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Sketching 4.png" alt="Sketching" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Sketching 5.png" alt="Sketching" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Sketching 6.png" alt="Sketching" loading="lazy"></div>
-            <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Sketching 1.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Sketching 2.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Sketching 3.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Sketching 4.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Sketching 5.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Sketching 6.png" alt="" loading="lazy"></div>
-          </div></div>
-        </div>
-        <div class="hobby-panel" id="p-life" role="tabpanel" aria-labelledby="t-life">
-          <p class="hobby-intro">I invest fully in the people around me. Deep connections, real conversations, showing up. <em>Consistency in anything teaches you everything — the rest takes care of itself.</em></p>
-          <div class="hobby-carousel"><div class="hobby-track">
-            <div class="hobby-slide"><img src="hobbies/Life 1.png" alt="Life" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Life 2.png" alt="Life" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Life 3.png" alt="Life" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Life 4.png" alt="Life" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Life 5.png" alt="Life" loading="lazy"></div><div class="hobby-slide"><img src="hobbies/Life 6.png" alt="Life" loading="lazy"></div>
-            <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Life 1.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Life 2.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Life 3.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Life 4.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Life 5.png" alt="" loading="lazy"></div><div class="hobby-slide" aria-hidden="true"><img src="hobbies/Life 6.png" alt="" loading="lazy"></div>
-          </div></div>
+<section class="sec hobbies" id="hobbies" aria-label="Life beyond design" data-nav="auto">
+  <div class="si">
+    <span class="s-tag rv">When I am not designing</span>
+    <h2 class="s-h2 rv d1">A life <em>fully lived.</em></h2>
+    <div class="hobby-tabs rv d2" role="tablist">
+      <button class="hobby-tab on" role="tab" aria-selected="true" id="t-cooking" aria-controls="p-cooking">Cooking</button>
+      <button class="hobby-tab" role="tab" aria-selected="false" id="t-travel" aria-controls="p-travel">Travel</button>
+      <button class="hobby-tab" role="tab" aria-selected="false" id="t-photography" aria-controls="p-photography">Photography</button>
+      <button class="hobby-tab" role="tab" aria-selected="false" id="t-sketching" aria-controls="p-sketching">Sketching</button>
+      <button class="hobby-tab" role="tab" aria-selected="false" id="t-moments" aria-controls="p-moments">Moments</button>
+    </div>
+    
+    <!-- COOKING -->
+    <div class="hobby-panel on" id="p-cooking" role="tabpanel" aria-labelledby="t-cooking">
+      <p class="hobby-intro">Food is how I say I love you. I cook for the people who matter most.</p>
+      <div class="hobby-carousel">
+        <div class="hobby-track">
+          <div class="hobby-slide"><img src="hobbies/Cooking 1.png" alt="Cooking" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Cooking 2.png" alt="Cooking" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Cooking 3.png" alt="Cooking" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Cooking 4.png" alt="Cooking" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Cooking 5.png" alt="Cooking" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Cooking 6.png" alt="Cooking" loading="lazy" width="180" height="320"></div>
+          <!-- Duplicate for infinite scroll - aria-hidden -->
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Cooking 1.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Cooking 2.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Cooking 3.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Cooking 4.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Cooking 5.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Cooking 6.png" alt="" loading="lazy" width="180" height="320"></div>
         </div>
       </div>
-    </section>
+    </div>
+    
+    <!-- TRAVEL -->
+    <div class="hobby-panel" id="p-travel" role="tabpanel" aria-labelledby="t-travel">
+      <p class="hobby-intro">Every place changes how I design — not because of the aesthetics, but because of the people.</p>
+      <div class="hobby-carousel">
+        <div class="hobby-track">
+          <div class="hobby-slide"><img src="hobbies/Travel 1.png" alt="Travel" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Travel 2.png" alt="Travel" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Travel 3.png" alt="Travel" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Travel 4.png" alt="Travel" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Travel 5.png" alt="Travel" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Travel 6.png" alt="Travel" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Travel 1.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Travel 2.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Travel 3.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Travel 4.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Travel 5.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Travel 6.png" alt="" loading="lazy" width="180" height="320"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- PHOTOGRAPHY -->
+    <div class="hobby-panel" id="p-photography" role="tabpanel" aria-labelledby="t-photography">
+      <p class="hobby-intro">I see the frame before I raise the camera. Photography is design with a shutter speed.</p>
+      <div class="hobby-carousel">
+        <div class="hobby-track">
+          <div class="hobby-slide"><img src="hobbies/Photography 1.png" alt="Photography" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Photography 2.png" alt="Photography" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Photography 3.png" alt="Photography" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Photography 4.png" alt="Photography" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Photography 5.png" alt="Photography" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Photography 6.png" alt="Photography" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Photography 1.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Photography 2.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Photography 3.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Photography 4.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Photography 5.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Photography 6.png" alt="" loading="lazy" width="180" height="320"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- SKETCHING -->
+    <div class="hobby-panel" id="p-sketching" role="tabpanel" aria-labelledby="t-sketching">
+      <p class="hobby-intro">My best thinking still happens on paper. The sketchbook is where ideas go before they are ready to be seen.</p>
+      <div class="hobby-carousel">
+        <div class="hobby-track">
+          <div class="hobby-slide"><img src="hobbies/Sketching 1.png" alt="Sketching" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Sketching 2.png" alt="Sketching" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Sketching 3.png" alt="Sketching" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Sketching 4.png" alt="Sketching" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Sketching 5.png" alt="Sketching" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Sketching 6.png" alt="Sketching" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Sketching 1.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Sketching 2.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Sketching 3.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Sketching 4.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Sketching 5.png" alt="" loading="lazy" width="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Sketching 6.png" alt="" loading="lazy" width="180" height="320"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- MOMENTS (renamed from Life) -->
+    <div class="hobby-panel" id="p-moments" role="tabpanel" aria-labelledby="t-moments">
+      <p class="hobby-intro">I invest in people the same way I invest in work. Completely.</p>
+      <div class="hobby-carousel">
+        <div class="hobby-track">
+          <div class="hobby-slide"><img src="hobbies/Life 1.png" alt="Moments" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Life 2.png" alt="Moments" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Life 3.png" alt="Moments" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Life 4.png" alt="Moments" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Life 5.png" alt="Moments" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide"><img src="hobbies/Life 6.png" alt="Moments" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Life 1.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Life 2.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Life 3.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Life 4.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Life 5.png" alt="" loading="lazy" width="180" height="320"></div>
+          <div class="hobby-slide" aria-hidden="true"><img src="hobbies/Life 6.png" alt="" loading="lazy" width="180" height="320"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- CONNECT -->
     <section class="connect" id="connect" aria-label="Get in touch" data-nav="dark">
@@ -1213,7 +1324,8 @@ function afterIntro(){
       var p=document.getElementById(tab.getAttribute('aria-controls'));if(p)p.classList.add('on');
     });
     tab.addEventListener('keydown',function(e){var idx=Array.from(tabs).indexOf(tab);if(e.key==='ArrowRight')tabs[(idx+1)%tabs.length].focus();if(e.key==='ArrowLeft')tabs[(idx-1+tabs.length)%tabs.length].focus();});
-  });
+  });{
+     
   /* Mobile nav */
   var ham=document.getElementById('navHam'),mob=document.getElementById('navMob');
   if(ham&&mob){
