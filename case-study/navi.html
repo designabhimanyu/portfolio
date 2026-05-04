@@ -562,6 +562,120 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   .pillar:nth-child(4){border-top:1px solid var(--bor);border-right:none}
 }
 
+
+/* ============================================================
+   HERO 2-COLUMN LAYOUT
+============================================================ */
+.cs-hero{position:relative;min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:0;padding:100px var(--pad) 72px;overflow:hidden;background:var(--bg);transition:background var(--dur) ease}
+.cs-hero-left{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;padding-right:40px}
+.cs-hero-right{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;height:100%}
+/* override old single-col content positioning */
+.cs-hero-content{position:static;max-width:none;margin:0;padding:0;width:100%}
+
+/* ============================================================
+   NAVI LOGO PILL
+============================================================ */
+.navi-logo-pill{display:inline-flex;align-items:center;gap:8px;background:#ffffff;border-radius:8px;padding:8px 14px 8px 10px;margin-bottom:20px;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s var(--ease)}
+.navi-logo-pill.on{opacity:1;transform:translateY(0)}
+.navi-logo-img{height:22px;width:auto;display:block}
+
+/* ============================================================
+   3-PHONE CASCADE
+============================================================ */
+.phones-cascade{position:relative;width:100%;height:520px;display:flex;align-items:center;justify-content:center}
+.phone-wrap{position:absolute;display:flex;flex-direction:column;align-items:center}
+.phone-wrap.phone-left{left:0;z-index:1;transform:translateX(10%) scale(0.82);opacity:0;transition:opacity .8s ease .5s,transform .8s var(--ease) .5s}
+.phone-wrap.phone-left.on{opacity:1;transform:translateX(10%) scale(0.82)}
+.phone-wrap.phone-center{z-index:3;left:50%;transform:translateX(-50%) translateY(0);opacity:0;transition:opacity .8s ease .2s,transform .8s var(--ease) .2s}
+.phone-wrap.phone-center.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.phone-wrap.phone-right{right:0;z-index:1;transform:translateX(-10%) scale(0.82);opacity:0;transition:opacity .8s ease .5s,transform .8s var(--ease) .5s}
+.phone-wrap.phone-right.on{opacity:1;transform:translateX(-10%) scale(0.82)}
+.phone-frame{width:180px;height:380px;border-radius:24px;border:8px solid var(--t1);background:#000;overflow:hidden;box-shadow:0 24px 48px rgba(0,0,0,.35),0 8px 16px rgba(0,0,0,.2);position:relative;transition:border-color var(--dur) ease}
+.phone-frame img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:60px;height:8px;background:var(--t1);border-radius:0 0 8px 8px;z-index:4;transition:background var(--dur) ease}
+.phone-frame-center{width:200px;height:422px;box-shadow:0 32px 64px rgba(0,0,0,.42),0 12px 24px rgba(0,0,0,.25)}
+
+/* ============================================================
+   SITUATION REBUILD
+============================================================ */
+.situation-para{font-size:clamp(16px,1.6vw,20px);font-weight:300;line-height:1.75;color:var(--t2);max-width:900px;margin-bottom:52px;transition:color var(--dur) ease}
+.situation-cols{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:52px}
+.situation-col-icon{font-size:28px;color:var(--ac);display:block;margin-bottom:12px;transition:color var(--dur) ease}
+.situation-col-label{font-family:var(--font-b);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);display:block;margin-bottom:14px;transition:color var(--dur) ease}
+.situation-col-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.situation-col-list li{font-size:15px;font-weight:400;line-height:1.6;color:var(--t2);padding-left:14px;position:relative;transition:color var(--dur) ease}
+.situation-col-list li::before{content:"";position:absolute;left:0;top:9px;width:4px;height:4px;border-radius:50%;background:var(--ac);transition:background var(--dur) ease}
+.stat-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:40px}
+.stat-row .stat-card{text-align:center;padding:28px 20px}
+.stat-row .stat-num{font-size:clamp(36px,4vw,52px);justify-content:center;display:block}
+
+/* ============================================================
+   JTBD — DARK BACKGROUND
+============================================================ */
+.insight-callout{text-align:center;padding:96px var(--pad);background:var(--bc);position:relative;overflow:hidden;transition:background var(--dur) ease}
+.insight-callout::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(var(--pr),var(--pg),var(--pb),.12) 0%,transparent 65%);pointer-events:none}
+.insight-callout-label{color:var(--ac)}
+.insight-callout-text{color:var(--tc)}
+
+/* ============================================================
+   RESEARCH PILLS — NON-INTERACTIVE BADGES
+============================================================ */
+.method-chip{pointer-events:none;user-select:none;padding:12px 20px;font-size:14px;cursor:default}
+
+/* ============================================================
+   ACCORDION — TIGHTER ANSWER
+============================================================ */
+.accordion-answer-inner{padding:0 80px 20px 80px}
+.accordion-a{font-size:15px;font-weight:400;line-height:1.65;color:var(--t2);max-width:580px}
+
+/* ============================================================
+   LEARNING CARDS — ICONS
+============================================================ */
+.learning-icon{font-size:28px;color:var(--ac);display:block;margin-bottom:14px;transition:color var(--dur) ease}
+
+/* ============================================================
+   CLOSING QUOTE CONTAINER
+============================================================ */
+.learning-quote{text-align:center;padding:20px var(--pad) 0;max-width:600px;margin:0 auto}
+.learning-quote-box{background:var(--acd);border:1px solid var(--acb);border-radius:var(--r);padding:32px 40px;transition:background var(--dur) ease,border-color var(--dur) ease}
+.learning-quote-box p{font-family:var(--font-a);font-style:italic;font-weight:300;font-size:clamp(18px,1.8vw,24px);line-height:1.5;color:var(--t1);transition:color var(--dur) ease}
+.learning-quote-box p em{color:var(--ac)}
+
+/* ============================================================
+   MOBILE HERO
+============================================================ */
+@media(max-width:1023px){
+  .cs-hero{grid-template-columns:1fr;grid-template-rows:auto auto;padding:80px var(--pad) 60px;gap:48px;min-height:auto}
+  .cs-hero-left{padding-right:0}
+  .cs-hero-right{height:320px}
+  .phones-cascade{height:320px}
+  .phone-frame{width:120px;height:252px;border-radius:16px;border-width:6px}
+  .phone-frame-center{width:136px;height:286px}
+  .phone-notch{width:40px;height:6px}
+}
+@media(max-width:767px){
+  .cs-hero{padding:72px 24px 52px;gap:36px}
+  .phones-cascade{height:260px}
+  .phone-frame{width:100px;height:210px;border-radius:14px;border-width:5px}
+  .phone-frame-center{width:116px;height:244px}
+  .situation-cols{grid-template-columns:1fr;gap:28px}
+  .stat-row{grid-template-columns:1fr}
+  .accordion-answer-inner{padding:0 0 18px 0}
+  .learning-quote{padding:20px 24px 0}
+}
+@media(max-width:479px){
+  .phones-cascade{height:220px}
+  .phone-frame{width:82px;height:172px;border-radius:12px;border-width:4px}
+  .phone-frame-center{width:96px;height:202px}
+}
+
+
+/* ============================================================
+   HERO SCROLL INDICATOR IN GRID
+============================================================ */
+.cs-hero-scroll{grid-column:1/-1;position:absolute;bottom:72px;right:var(--pad);display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;transition:opacity .7s ease .9s;z-index:2;pointer-events:none}
+.cs-hero-scroll.on{opacity:1}
+
 </style>
 <body>
 <a href="#main" class="skip">Skip to main content</a>
@@ -574,7 +688,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
 <nav class="nav" id="nav" aria-label="Case study navigation">
   <div class="nav-bg" aria-hidden="true"></div>
   <div class="nav-inner">
-    <a href="../index.html#work" class="nav-back" aria-label="Back to work section">
+    <a href="../index.html?skip=true#work" class="nav-back" aria-label="Back to work section">
       <i class="ph-thin ph-arrow-left" aria-hidden="true"></i>Work
     </a>
     <span class="nav-center">Abhimanyu Arya &nbsp;·&nbsp; <span>Navi</span></span>
@@ -590,7 +704,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
 </nav>
 
 <div class="nav-mob" id="navMob" role="dialog" aria-modal="true" aria-label="Navigation">
-  <a href="../index.html#work" onclick="closeMob()">← Back to Work</a>
+  <a href="../index.html?skip=true#work" onclick="closeMob()">← Back to Work</a>
   <a href="../index.html#about" onclick="closeMob()">About</a>
   <a href="#connect" onclick="closeMob()">Say Hello</a>
 </div>
@@ -599,30 +713,63 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
 
   <!-- HERO -->
   <section class="cs-hero" aria-label="Case study introduction">
-    <div class="cs-hero-content">
-      <div class="navi-wordmark" id="naviWordmark" aria-label="Navi">navi</div>
-      <div class="cs-hero-chips" id="heroChips">
-        <span class="chip accent"><span class="chip-dot"></span>FinTech · Navi</span>
-        <span class="chip">Product Design</span>
-        <span class="chip">2023</span>
-      </div>
-      <h1 class="cs-hero-h1" id="heroH1">Making insurance renewal<br><em>actually happen.</em></h1>
-      <p class="cs-hero-sub" id="heroSub">Renewal existed in the app. Almost no one used it. We built a flow that actually worked.</p>
-      <div class="cs-hero-metrics" id="heroMetrics">
-        <div class="metric-pill" aria-label="In-app renewals increased from 48% to 95%">
-          <span class="metric-pill-val-muted">48%</span>
-          <span class="metric-pill-arrow">→</span>
-          <span class="metric-pill-val">95%</span>
-          <span class="metric-pill-label">In-app renewals</span>
+    <!-- LEFT COLUMN -->
+    <div class="cs-hero-left">
+      <div class="cs-hero-content">
+        <div class="navi-logo-pill" id="naviLogoPill">
+          <img src="navi/Navi_logo.webp" alt="Navi" class="navi-logo-img">
         </div>
-        <div class="metric-pill" aria-label="Early renewals increased from under 12% to 40%">
-          <span class="metric-pill-val-muted">&lt;12%</span>
-          <span class="metric-pill-arrow">→</span>
-          <span class="metric-pill-val">40%</span>
-          <span class="metric-pill-label">Early renewals</span>
+        <div class="cs-hero-chips" id="heroChips">
+          <span class="chip accent"><span class="chip-dot"></span>FinTech · Navi</span>
+          <span class="chip">Product Design</span>
+          <span class="chip">2023</span>
+        </div>
+        <h1 class="cs-hero-h1" id="heroH1">Making insurance renewal<br><em>actually happen.</em></h1>
+        <p class="cs-hero-sub" id="heroSub">Renewal existed in the app. Almost no one used it. We built a flow that actually worked.</p>
+        <div class="cs-hero-metrics" id="heroMetrics">
+          <div class="metric-pill" aria-label="In-app renewals increased from 48% to 95%">
+            <span class="metric-pill-val-muted">48%</span>
+            <span class="metric-pill-arrow">→</span>
+            <span class="metric-pill-val">95%</span>
+            <span class="metric-pill-label">In-app renewals</span>
+          </div>
+          <div class="metric-pill" aria-label="Early renewals increased from under 12% to 40%">
+            <span class="metric-pill-val-muted">&lt;12%</span>
+            <span class="metric-pill-arrow">→</span>
+            <span class="metric-pill-val">40%</span>
+            <span class="metric-pill-label">Early renewals</span>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- RIGHT COLUMN — 3 phone cascade -->
+    <div class="cs-hero-right" aria-hidden="true">
+      <div class="phones-cascade" id="phonesCascade">
+        <!-- Left phone: Home screen — entry point -->
+        <div class="phone-wrap phone-left" id="phoneLeft">
+          <div class="phone-frame" role="img" aria-label="Navi app home screen showing renewal due">
+            <div class="phone-notch"></div>
+            <img src="navi/Home_1.webp" alt="Navi home screen — Payment Dues with 15 days left badge" loading="eager">
+          </div>
+        </div>
+        <!-- Center phone: Review Policy — the designed solution -->
+        <div class="phone-wrap phone-center" id="phoneCenter">
+          <div class="phone-frame phone-frame-center" role="img" aria-label="Navi renewal review screen — the designed solution">
+            <div class="phone-notch"></div>
+            <img src="navi/Review_Policy.webp" alt="Review Policy screen — insured members, sum insured, benefits" loading="eager">
+          </div>
+        </div>
+        <!-- Right phone: Payment — end of flow -->
+        <div class="phone-wrap phone-right" id="phoneRight">
+          <div class="phone-frame" role="img" aria-label="Navi payment screen — renewal complete">
+            <div class="phone-notch"></div>
+            <img src="navi/Payment.webp" alt="Review and Pay screen — payment methods, discount applied" loading="eager">
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="cs-hero-scroll" id="heroScroll" aria-hidden="true">
       <span class="cs-hero-scroll-text">Scroll</span>
       <span class="cs-hero-scroll-line"></span>
@@ -664,50 +811,51 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
     <div class="zi">
       <span class="s-tag rv">The Situation</span>
       <h2 class="s-h2 rv d1">There was no renewal flow.<br>We built <em>one.</em></h2>
-      <div class="context-grid">
-        <div class="context-body">
-          <p class="rv d2">Renewal existed in the app — but not really. Users who needed to renew called support. An agent walked them through it over the phone. No in-app flow, no deadline visibility, no clear path forward.</p>
-          <div class="situation-realities rv d3">
-            <div>
-              <span class="situation-reality-label">User reality</span>
-              <ul class="situation-reality-list" aria-label="What users experienced">
-                <li>Renewal felt unclear and risky</li>
-                <li>Didn't know what changed or what to do</li>
-                <li>Calling felt safer than trying the app</li>
-              </ul>
-            </div>
-            <div>
-              <span class="situation-reality-label">Business reality</span>
-              <ul class="situation-reality-list" aria-label="Business impact">
-                <li>Late renewals increased lapse risk</li>
-                <li>Every renewal needed ops involvement</li>
-                <li>No way to scale</li>
-              </ul>
-            </div>
-          </div>
+
+      <p class="situation-para rv d2">Renewal existed in the app — but not really. Users who needed to renew called support. An agent walked them through it over the phone. No in-app flow, no deadline visibility, no clear path forward.</p>
+
+      <div class="situation-cols rv d3">
+        <div>
+          <i class="ph-thin ph-user situation-col-icon" aria-hidden="true"></i>
+          <span class="situation-col-label">User Reality</span>
+          <ul class="situation-col-list">
+            <li>Renewal felt unclear and risky</li>
+            <li>Didn't know what changed or what to do</li>
+            <li>Calling felt safer than trying the app</li>
+          </ul>
         </div>
-        <dl class="stat-cards rv d2" aria-label="Baseline metrics">
-          <div class="stat-card">
-            <dt class="stat-label">App renewals — mostly ops-assisted</dt>
-            <dd class="stat-num">48%</dd>
-          </div>
-          <div class="stat-card">
-            <dt class="stat-label">Used any in-app flow at all</dt>
-            <dd class="stat-num">&lt;12%</dd>
-          </div>
-          <div class="stat-card">
-            <dt class="stat-label">Waited until the last month (R11)</dt>
-            <dd class="stat-num">85%</dd>
-          </div>
-        </dl>
+        <div>
+          <i class="ph-thin ph-buildings situation-col-icon" aria-hidden="true"></i>
+          <span class="situation-col-label">Business Reality</span>
+          <ul class="situation-col-list">
+            <li>Late renewals increased lapse risk</li>
+            <li>Every renewal needed ops involvement</li>
+            <li>No way to scale</li>
+          </ul>
+        </div>
       </div>
-      <aside class="user-quote rv d4" aria-label="User feedback">
+
+      <dl class="stat-row rv d4" aria-label="Baseline metrics">
+        <div class="stat-card">
+          <dt class="stat-label">App renewals — mostly ops-assisted</dt>
+          <dd class="stat-num">48%</dd>
+        </div>
+        <div class="stat-card">
+          <dt class="stat-label">Used any in-app flow at all</dt>
+          <dd class="stat-num">&lt;12%</dd>
+        </div>
+        <div class="stat-card">
+          <dt class="stat-label">Waited until the last month (R11)</dt>
+          <dd class="stat-num">85%</dd>
+        </div>
+      </dl>
+
+      <aside class="user-quote rv d5" aria-label="User feedback">
         <p>"I didn't want to risk it. I just called."</p>
         <cite>— Post-launch user interview, Navi research team</cite>
       </aside>
     </div>
   </section>
-
   <!-- JTBD CALLOUT -->
   <div class="insight-callout" aria-label="Key insight">
     <span class="insight-callout-label rv">What users actually needed</span>
@@ -1008,21 +1156,8 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
     </div>
   </section>
 
-  <!-- WHAT'S NEXT -->
-  <section class="whats-next" id="whats-next" aria-label="What comes next">
-    <div class="zi">
-      <span class="s-tag rv">What's Next</span>
-      <h2 class="s-h2 rv d1" style="margin-bottom:28px">The work<br><em>continues.</em></h2>
-      <ul class="whats-next-list rv d2">
-        <li>Target last-minute renewers — personalised reminders at R11</li>
-        <li>A/B test reminder timing to find what triggers earlier action</li>
-        <li>Use post-launch data to build the nudge layer we intentionally skipped</li>
-      </ul>
-      <p class="whats-next-close rv d3">We shipped the foundation. The next sprint is about behaviour.</p>
-    </div>
-  </section>
 
-  <!-- LEARNINGS -->
+    <!-- LEARNINGS -->
   <section class="zone zone-alt" id="learnings" aria-label="Learnings">
     <div class="zi">
       <span class="s-tag rv">What I Learned</span>
@@ -1030,21 +1165,26 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
 
       <ul class="learning-cards rv d2" aria-label="Project learnings">
         <li class="learning-card">
+          <i class="ph-thin ph-shield learning-icon" aria-hidden="true"></i>
           <span class="learning-num">Insight 01</span>
           <p class="learning-text">In financial products, the interface has to feel safe before users will act in it.</p>
         </li>
         <li class="learning-card">
+          <i class="ph-thin ph-hourglass learning-icon" aria-hidden="true"></i>
           <span class="learning-num">Insight 02</span>
           <p class="learning-text">Progressive disclosure slows people down when they just want to get something done.</p>
         </li>
         <li class="learning-card">
+          <i class="ph-thin ph-database learning-icon" aria-hidden="true"></i>
           <span class="learning-num">Insight 03</span>
           <p class="learning-text">Skipping the nudge layer at launch was the right call. Real data beats assumptions every time.</p>
         </li>
       </ul>
 
       <div class="learning-quote rv d3">
-        <p>"When the app works,<br>users don't call.<br>They just <em>renew.</em>"</p>
+        <div class="learning-quote-box">
+          <p>"When the app works,<br>users don't call.<br>They just <em>renew.</em>"</p>
+        </div>
       </div>
     </div>
   </section>
@@ -1081,8 +1221,10 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
 /* ══ 2. HERO ANIMATIONS */
 (function(){
   setTimeout(function(){
-    var wm=document.getElementById('naviWordmark');
-    if(wm)wm.classList.add('on');
+    // Logo pill
+    var lp=document.getElementById('naviLogoPill');
+    if(lp)lp.classList.add('on');
+    // Text elements
     var els=['heroChips','heroH1','heroSub','heroMetrics','heroScroll'];
     els.forEach(function(id,i){
       setTimeout(function(){
@@ -1090,6 +1232,17 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
         if(el)el.classList.add('on');
       },i*120);
     });
+    // Phone cascade - staggered
+    setTimeout(function(){
+      var pc=document.getElementById('phoneCenter');
+      if(pc)pc.classList.add('on');
+    },300);
+    setTimeout(function(){
+      var pl=document.getElementById('phoneLeft');
+      var pr=document.getElementById('phoneRight');
+      if(pl)pl.classList.add('on');
+      if(pr)pr.classList.add('on');
+    },500);
   },200);
 })();
 
