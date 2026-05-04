@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Navi — Health Insurance Renewal · Abhimanyu Arya</title>
-<meta name="description" content="How I took Navi's in-app health insurance renewals from 12% to 95% — a FinTech product design case study by Abhimanyu Arya.">
+<meta name="description" content="How I built Navi's health insurance renewal from zero — taking in-app renewals from 48% to 95% — a FinTech product design case study by Abhimanyu Arya.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com">
@@ -26,7 +26,7 @@
 [data-mode="brahmamuhurta"] {
   --bg:#F6EFE3; --bg2:#EDE5D4; --surf:rgba(255,252,245,0.82); --bor:rgba(28,20,8,0.08);
   --nav-bg-rgb:246,239,227; --hero-rgb:246,239,227;
-  --t1:#1C1408; --t2:#5A4028; --t3:#8A6840;
+  --t1:#1C1408; --t2:#5A4028; --t3:#6A5030;
   --ac:#A86C0E; --ac2:#7FA060; --acd:rgba(168,108,14,0.10); --acb:rgba(168,108,14,0.25);
   --pr:168; --pg:108; --pb:14;
   --bc:#4A2808; --tc:#F5ECD8; --tc2:rgba(245,236,216,0.68); --bf:#301804;
@@ -36,7 +36,7 @@
 [data-mode="dhoop"] {
   --bg:#FAFCEE; --bg2:#EEF5D8; --surf:rgba(255,255,250,0.80); --bor:rgba(16,14,4,0.08);
   --nav-bg-rgb:250,252,238; --hero-rgb:250,252,238;
-  --t1:#100E04; --t2:#4A3A14; --t3:#7A6830;
+  --t1:#100E04; --t2:#4A3A14; --t3:#5A4818;
   --ac:#3E9810; --ac2:#2A8FD4; --acd:rgba(62,152,16,0.10); --acb:rgba(62,152,16,0.25);
   --pr:62; --pg:152; --pb:16;
   --bc:#143808; --tc:#EEF5D8; --tc2:rgba(238,245,216,0.68); --bf:#0A2204;
@@ -191,9 +191,10 @@ body:not(.kb) :focus{outline:none}
 .problem-card:hover{transform:translateY(-4px);border-color:var(--acb)}
 .problem-card-icon{font-size:28px;color:var(--ac);display:block;margin-bottom:16px;transition:color var(--dur) ease}
 .problem-card-title{font-family:var(--font-d);font-size:clamp(16px,1.6vw,20px);font-weight:700;letter-spacing:-.02em;color:var(--t1);margin-bottom:12px;transition:color var(--dur) ease}
-.problem-card-body{font-size:14px;font-weight:300;line-height:1.75;color:var(--t2);transition:color var(--dur) ease}
-.blockquote{border-left:2px solid var(--ac);padding:24px 32px;background:var(--acd);border-radius:0 var(--r) var(--r) 0;margin:0;transition:background var(--dur) ease,border-color var(--dur) ease}
-.blockquote p{font-family:var(--font-b);font-size:clamp(15px,1.5vw,18px);font-weight:400;font-style:italic;color:var(--t1);line-height:1.65;transition:color var(--dur) ease}
+.problem-card-body{font-size:15px;font-weight:400;line-height:1.75;color:var(--t2);transition:color var(--dur) ease}
+.user-quote{border-left:2px solid var(--ac);padding:24px 32px;background:var(--acd);border-radius:0 var(--r) var(--r) 0;margin:0;transition:background var(--dur) ease,border-color var(--dur) ease}
+.user-quote p{font-family:var(--font-b);font-size:clamp(15px,1.5vw,18px);font-weight:400;font-style:italic;color:var(--t1);line-height:1.65;transition:color var(--dur) ease}
+.user-quote cite{display:block;font-family:var(--font-b);font-size:11px;font-weight:500;font-style:normal;letter-spacing:.08em;color:var(--t3);margin-top:12px;transition:color var(--dur) ease}
 
 /* ============================================================
    RESEARCH
@@ -208,18 +209,17 @@ body:not(.kb) :focus{outline:none}
 .persona-card img{width:100%;height:auto;display:block;transition:transform .5s var(--ease)}
 .persona-card:hover img{transform:scale(1.02)}
 .insight-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:60px}
-.insight-chip{padding:10px 18px;border-radius:100px;border:1px solid var(--bor);background:var(--surf);font-family:var(--font-b);font-size:12px;font-weight:500;color:var(--t2);letter-spacing:.04em;transition:border-color .2s,color .2s,background var(--dur) ease}
-.insight-chip:hover{border-color:var(--acb);color:var(--ac)}
+.insight-chip{padding:10px 18px;border-radius:100px;border:1px solid var(--bor);background:var(--surf);font-family:var(--font-b);font-size:12px;font-weight:500;color:var(--t2);letter-spacing:.04em;transition:background var(--dur) ease,border-color var(--dur) ease}
 .insight-callout{text-align:center;padding:72px var(--pad);background:var(--bg2);position:relative;overflow:hidden;transition:background var(--dur) ease}
 /* Research methods + insight cards */
 .research-methods{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
 .method-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:100px;border:1px solid var(--bor);background:var(--surf);font-family:var(--font-b);font-size:12px;font-weight:500;color:var(--t2);letter-spacing:.02em;transition:border-color .2s,background var(--dur) ease}
 .method-chip i{color:var(--ac);font-size:14px;transition:color var(--dur) ease}
-.method-chip:hover{border-color:var(--acb);color:var(--t1)}
+
 .research-ownership{font-family:var(--font-b);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:40px;transition:color var(--dur) ease}
 .insight-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:0}
 .insight-card{background:var(--surf);border:1px solid var(--bor);border-radius:14px;padding:22px 24px;display:flex;align-items:flex-start;gap:16px;transition:border-color .3s,background var(--dur) ease,transform .3s var(--ease)}
-.insight-card:hover{border-color:var(--acb);transform:translateY(-3px)}
+.insight-card:hover{border-color:var(--acb)}
 .insight-card-num{font-family:var(--font-d);font-size:11px;font-weight:700;color:var(--ac);letter-spacing:.1em;flex-shrink:0;padding-top:2px;transition:color var(--dur) ease}
 .insight-card-text{font-size:14px;font-weight:400;line-height:1.6;color:var(--t1);transition:color var(--dur) ease}
 .insight-callout::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(var(--pr),var(--pg),var(--pb),.07) 0%,transparent 65%);pointer-events:none}
@@ -320,12 +320,40 @@ body:not(.kb) :focus{outline:none}
 .next-h2{font-family:var(--font-d);font-size:clamp(28px,4vw,52px);font-weight:800;letter-spacing:-.035em;line-height:.98;color:var(--tc);margin-bottom:14px;transition:color var(--dur) ease}
 .next-h2 em{font-family:var(--font-a);font-style:italic;font-weight:300;color:var(--ac)}
 .next-sub{font-size:15px;font-weight:300;color:var(--tc2);margin-bottom:44px;transition:color var(--dur) ease}
-.btn-pri{display:inline-flex;align-items:center;gap:8px;padding:15px 36px;border-radius:100px;background:var(--ac);color:#fff;font-family:var(--font-b);font-size:13px;font-weight:500;letter-spacing:.04em;margin-bottom:36px;box-shadow:0 0 18px 4px rgba(var(--pr),var(--pg),var(--pb),.38);transition:opacity .2s,transform .2s var(--ease),background var(--dur) ease;animation:cta-glow 2.8s ease-in-out infinite}
+.btn-pri{display:inline-flex;align-items:center;gap:8px;padding:15px 36px;border-radius:100px;background:var(--ac);color:#fff;font-family:var(--font-b);font-size:13px;font-weight:500;letter-spacing:.04em;margin-bottom:36px;box-shadow:0 0 18px 4px rgba(var(--pr),var(--pg),var(--pb),.38);transition:opacity .2s,transform .2s var(--ease),background var(--dur) ease;animation:cta-glow 2.8s ease-in-out 2 forwards;box-shadow:0 0 18px 4px rgba(var(--pr),var(--pg),var(--pb),.25)}
 @keyframes cta-glow{0%,100%{box-shadow:0 0 18px 4px rgba(var(--pr),var(--pg),var(--pb),.38),0 0 40px 8px rgba(var(--pr),var(--pg),var(--pb),.18)}50%{box-shadow:0 0 28px 8px rgba(var(--pr),var(--pg),var(--pb),.55),0 0 60px 16px rgba(var(--pr),var(--pg),var(--pb),.28)}}
 .btn-pri:hover{opacity:.88;transform:translateY(-2px)}
 .next-links{display:flex;justify-content:center;gap:32px}
-.next-link{font-family:var(--font-b);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--tc2);padding:12px 4px;min-height:44px;display:flex;align-items:center;transition:color .2s}
+.next-link{font-family:var(--font-b);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--tc2);padding:12px 16px;min-height:44px;display:flex;align-items:center;transition:color .2s}
 .next-link:hover{color:var(--tc)}
+
+
+/* ============================================================
+   PROJECT SNAPSHOT
+============================================================ */
+.snapshot{background:var(--bg2);padding:0;border-bottom:1px solid var(--bor);transition:background var(--dur) ease,border-color var(--dur) ease}
+.snapshot-grid{max-width:var(--max-w);margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);gap:0;padding:0 var(--pad)}
+.snapshot-cell{padding:28px 24px;border-right:1px solid var(--bor);transition:border-color var(--dur) ease}
+.snapshot-cell:last-child{border-right:none}
+.snapshot-label{font-family:var(--font-b);font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:8px;display:block;transition:color var(--dur) ease}
+.snapshot-val{font-family:var(--font-b);font-size:13px;font-weight:400;color:var(--t1);line-height:1.55;transition:color var(--dur) ease}
+.snapshot-val strong{font-weight:600;color:var(--ac);transition:color var(--dur) ease}
+/* Before / After */
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:44px}
+.ba-card{background:var(--surf);border:1px solid var(--bor);border-radius:var(--r);padding:32px;transition:background var(--dur) ease,border-color .3s}
+.ba-card.after{border-color:var(--acb);background:var(--acd)}
+.ba-label{font-family:var(--font-b);font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin-bottom:20px;display:block;transition:color var(--dur) ease}
+.ba-card:not(.after) .ba-label{color:var(--t3)}
+.ba-card.after .ba-label{color:var(--ac)}
+.ba-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.ba-list li{font-size:14px;font-weight:400;line-height:1.6;color:var(--t2);padding-left:16px;position:relative;transition:color var(--dur) ease}
+.ba-list li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--t3);transition:background var(--dur) ease}
+.ba-card.after .ba-list li::before{background:var(--ac)}
+.ba-card.after .ba-list li{color:var(--t1)}
+/* Cross-functional notes */
+.crossfunc-note{font-family:var(--font-b);font-size:13px;font-weight:400;color:var(--t3);font-style:italic;margin-top:28px;padding-top:20px;border-top:1px solid var(--bor);line-height:1.6;transition:color var(--dur) ease,border-color var(--dur) ease}
+/* Impact business note */
+.impact-business{margin-top:28px;max-width:780px;margin-left:auto;margin-right:auto;padding:24px 28px;background:var(--surf);border:1px solid var(--bor);border-radius:var(--r);font-size:15px;font-weight:400;line-height:1.72;color:var(--t2);transition:background var(--dur) ease,border-color var(--dur) ease}
 
 /* ============================================================
    FOOTER
@@ -343,6 +371,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   .nav-inner{padding:20px 48px}
   .nav.scrolled .nav-inner{padding:14px 48px}
   .zone{padding:88px 48px}
+  .snapshot-grid{padding:0 48px}
   .cs-hero-content{padding:0 48px}
   .next-zone{padding:80px 48px}
   footer{padding:20px 48px}
@@ -351,6 +380,8 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   .nav-inner{padding:18px 40px}
   .nav.scrolled .nav-inner{padding:12px 40px}
   .zone{padding:80px 40px}
+  .snapshot-grid{padding:0 40px;grid-template-columns:repeat(3,1fr)}
+  .snapshot-cell:nth-child(3){border-right:none}
   .cs-hero-content{padding:0 40px}
   .next-zone{padding:72px 40px}
   footer{padding:18px 40px}
@@ -359,13 +390,14 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   .nav-inner{padding:16px 32px}
   .nav.scrolled .nav-inner{padding:12px 32px}
   .zone{padding:72px 32px}
+  .snapshot-grid{padding:0 32px;grid-template-columns:repeat(3,1fr)}
+  .snapshot-cell:nth-child(3){border-right:none}
   .cs-hero-content{padding:0 32px}
   .context-grid{grid-template-columns:1fr;gap:44px}
-  .impact-metrics{grid-template-columns:1fr 1fr}
   .impact-metrics--two{grid-template-columns:1fr 1fr;max-width:100%}
-  .impact-card:last-child{grid-column:span 2}
   .learning-cards{grid-template-columns:1fr}
   .insight-cards{grid-template-columns:1fr}
+  .before-after{grid-template-columns:1fr}
   .next-zone{padding:64px 32px}
   footer{padding:18px 32px}
   .cs-hero{padding:0 0 64px}
@@ -379,22 +411,24 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   .nav.scrolled .nav-inner{padding:10px 24px}
   .nav-center{display:none}
   .zone{padding:64px 24px}
+  .snapshot-grid{padding:0 16px;grid-template-columns:1fr 1fr}
+  .snapshot-cell{border-bottom:1px solid var(--bor)}
+  .snapshot-cell:nth-child(even){border-right:none}
   .cs-hero{padding:0 0 52px}
   .cs-hero-content{padding:0 24px}
   .context-grid{grid-template-columns:1fr;gap:36px}
   .problem-cards{grid-template-columns:1fr}
-  .persona-grid{grid-template-columns:1fr}
   .variant-grid{grid-template-columns:1fr}
-  .impact-metrics{grid-template-columns:1fr}
   .impact-metrics--two{grid-template-columns:1fr;max-width:100%}
   .insight-cards{grid-template-columns:1fr}
+  .before-after{grid-template-columns:1fr}
   .learning-cards{grid-template-columns:1fr}
   .decision-row{grid-template-columns:50px 1fr;gap:18px}
   .insight-callout{padding:52px 24px}
-  .learning-quote{padding:0 24px 64px}
+  .learning-quote{padding:0 0 20px}
   .next-zone{padding:64px 24px}
   footer{padding:16px 24px}
-  .next-links{gap:16px;flex-wrap:wrap;justify-content:center}
+  .next-links{gap:8px;flex-wrap:wrap;justify-content:center}
 }
 @media(max-width:479px){
   .nav-inner{padding:12px 16px}
@@ -444,7 +478,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
 <div class="nav-mob" id="navMob" role="dialog" aria-modal="true" aria-label="Navigation">
   <a href="../index.html#work" onclick="closeMob()">← Back to Work</a>
   <a href="../index.html#about" onclick="closeMob()">About</a>
-  <a href="mailto:abhimanyuaryawork@gmail.com" onclick="closeMob()">Let's talk</a>
+  <a href="#connect" onclick="closeMob()">Say Hello</a>
 </div>
 
 <main id="main">
@@ -460,10 +494,10 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
         <span class="chip">8 min read</span>
       </div>
       <h1 class="cs-hero-h1" id="heroH1">Making health insurance<br>renewal <em>actually happen.</em></h1>
-      <p class="cs-hero-sub" id="heroSub">Less than 12% of users renewed through the app. The rest called ops. That was the whole problem — and the whole opportunity.</p>
+      <p class="cs-hero-sub" id="heroSub">Less than 12% of users completed renewal in-app. The rest called ops, used external portals, or delayed until the last window. This wasn't a usability problem — it was a system breakdown costing ops overhead on every single renewal.</p>
       <div class="cs-hero-metrics" id="heroMetrics">
         <div class="metric-pill">
-          <span class="metric-pill-val">68%</span>
+          <span class="metric-pill-val">48%</span>
           <span class="metric-pill-arrow">→</span>
           <span class="metric-pill-val">95%</span>
           <span class="metric-pill-label">In-app renewals</span>
@@ -474,12 +508,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
           <span class="metric-pill-val">40%</span>
           <span class="metric-pill-label">Early renewals</span>
         </div>
-        <div class="metric-pill">
-          <span class="metric-pill-val">85%</span>
-          <span class="metric-pill-arrow">→</span>
-          <span class="metric-pill-val">↓ Significantly</span>
-          <span class="metric-pill-label">R11 delayed renewals</span>
-        </div>
+
       </div>
     </div>
     <div class="cs-hero-scroll" id="heroScroll" aria-hidden="true">
@@ -488,6 +517,37 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
     </div>
   </section>
 
+
+  <!-- PROJECT SNAPSHOT -->
+  <div class="snapshot" aria-label="Project overview">
+    <div class="snapshot-grid rv">
+      <div class="snapshot-cell">
+        <span class="snapshot-label">Role</span>
+        <div class="snapshot-val">Product Designer<br><strong>End-to-end ownership</strong></div>
+      </div>
+      <div class="snapshot-cell">
+        <span class="snapshot-label">Team</span>
+        <div class="snapshot-val">1 PM · 3 Engineers<br>Ops stakeholders</div>
+      </div>
+      <div class="snapshot-cell">
+        <span class="snapshot-label">Timeline</span>
+        <div class="snapshot-val">8-week sprint<br>Discovery to handoff</div>
+      </div>
+      <div class="snapshot-cell">
+        <span class="snapshot-label">Scope</span>
+        <div class="snapshot-val">Renewal funnel — entry point, status clarity, payment, post-renewal comms</div>
+      </div>
+      <div class="snapshot-cell">
+        <span class="snapshot-label">Constraints</span>
+        <div class="snapshot-val">No existing flow; ops dependency normalised; low user trust; limited engineering bandwidth</div>
+      </div>
+      <div class="snapshot-cell">
+        <span class="snapshot-label">Outcome</span>
+        <div class="snapshot-val">Renewal built <strong>from zero</strong>. Ops shifted from default channel to fallback.</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ ZONE 2: CONTEXT ═══════════════════════════════════════ -->
   <section class="zone zone-alt" id="context" aria-label="Project context">
     <div class="zi">
@@ -495,13 +555,15 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
       <h2 class="s-h2 rv d1">Renewal existed.<br>It just didn't <em>work.</em></h2>
       <div class="context-grid">
         <div class="context-body">
-          <p class="rv d2">At Navi, the app had a renewal flow. Almost nobody used it. Users were calling ops, using external portals, and delaying to the last moment.</p>
-          <p class="rv d3">That's not a UX problem — that's a business breakdown. Ops was absorbing the cost of what should have been fully self-serve.</p>
+          <p class="rv d2">At Navi, the app had a renewal flow. Almost nobody used it. There was no renewal product to redesign — renewal wasn't a product at all. It was an ops process. Users called in. Agents stayed on the line. We built the foundation from zero.</p>
+          <p class="rv d3">48% of renewals technically happened via the app. But less than 12% used the actual renewal flow — the rest were ops-assisted, portal-redirected, or last-minute panics. That's not a UX problem — that's a business breakdown.</p>
+          <p class="rv d3">Users weren't unwilling. They were uncertain. They didn't know what renewal would change, how close they were to lapsation, or whether completing it in the app would actually work. Ops felt safer than a UI they'd never trusted.</p>
+          <p class="crossfunc-note rv d4">In stakeholder sessions with the PM and ops lead, we established that ops dependency was the primary business cost — not just a UX inconvenience.</p>
         </div>
         <div class="stat-cards rv d2">
           <div class="stat-card">
-            <div class="stat-num">68%</div>
-            <div class="stat-label">Renewals via app — but not truly self-serve</div>
+            <div class="stat-num">48%</div>
+            <div class="stat-label">Renewals via app — but not truly end-to-end self-serve</div>
           </div>
           <div class="stat-card">
             <div class="stat-num">&lt;12%</div>
@@ -509,7 +571,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
           </div>
           <div class="stat-card">
             <div class="stat-num">85%</div>
-            <div class="stat-label">Delayed to R11 — peak lapsation risk</div>
+            <div class="stat-label">Delayed to R11 (the 11th month of a 12-month policy cycle — the highest-risk window for lapsation)</div>
           </div>
         </div>
       </div>
@@ -543,8 +605,8 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   <section class="zone zone-alt" id="research" aria-label="Research and insights">
     <div class="zi">
       <span class="s-tag rv">Research</span>
-      <h2 class="s-h2 rv d1">Led discovery.<br>Found the <em>real job.</em></h2>
-      <p class="s-sub rv d2">I conducted exploratory interviews, shadowed ops teams, and audited the renewal funnel. Synthesized findings across 20 user conversations to identify core opportunity areas.</p>
+      <h2 class="s-h2 rv d1">Led discovery.<br>Found the <em>real answer.</em></h2>
+      <p class="s-sub rv d2">Discovery started with a question: why would users who'd paid for insurance for 11 months abandon renewal in the final stretch? 20 interviews, ops shadowing, and a full funnel audit revealed the answer wasn't behaviour — it was the system.</p>
 
       <figure class="zoom-img rv d2">
         <img src="navi/Zoom.webp" alt="Research sessions conducted over Zoom — 20 participant interviews, phone and video" loading="lazy">
@@ -561,32 +623,26 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
 
       <p class="research-ownership rv d3">Led discovery · Synthesized findings · Identified opportunity areas</p>
 
-      <div class="insight-cards rv d4">
-        <div class="insight-card">
+      <ul class="insight-cards rv d4" aria-label="Key research insights">
+        <li class="insight-card">
           <span class="insight-card-num">01</span>
-          <p class="insight-card-text">Users didn't trust app-based renewal — ops felt safer</p>
-        </div>
-        <div class="insight-card">
+          <p class="insight-card-text">Users treated ops as insurance against a UI they'd never had to trust with something this important</p>
+        </li>
+        <li class="insight-card">
           <span class="insight-card-num">02</span>
-          <p class="insight-card-text">Renewal entry points were buried and easy to miss</p>
-        </div>
-        <div class="insight-card">
+          <p class="insight-card-text">The renewal entry point required 3 taps to find — most users discovered it only when ops told them where to look</p>
+        </li>
+        <li class="insight-card">
           <span class="insight-card-num">03</span>
-          <p class="insight-card-text">85% of users delayed until R11, maximising lapsation risk</p>
-        </div>
-        <div class="insight-card">
+          <p class="insight-card-text">Delay wasn't procrastination — it was rational. The system created no urgency and no cost to waiting. So users waited.</p>
+        </li>
+        <li class="insight-card">
           <span class="insight-card-num">04</span>
-          <p class="insight-card-text">Ops dependency had replaced self-serve as the default path</p>
-        </div>
-      </div>
+          <p class="insight-card-text">Ops had become the default renewal channel. The app flow wasn't competing with ops — it had already lost.</p>
+        </li>
+      </ul>
     </div>
   </section>
-
-  <!-- The big insight callout — full bleed, outside zi container -->
-  <div class="insight-callout" aria-label="Key research insight">
-    <span class="insight-callout-label rv">The real job-to-be-done</span>
-    <p class="insight-callout-text rv d1">"The job wasn't <em>'renew'.</em><br>It was: help me avoid lapsation<br>confidently, with minimum effort."</p>
-  </div>
 
   <!-- ══ ZONE 5: EXPLORATION ════════════════════════════════════ -->
   <section class="zone" id="exploration" aria-label="Design exploration">
@@ -613,7 +669,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
           <div class="variant-body">
             <span class="variant-label">Variant 02</span>
             <h3 class="variant-title">Progressive disclosure flow</h3>
-            <p class="variant-why"><strong>Explored because:</strong> revealed details step-by-step to reduce anxiety.<br><strong>Moved past:</strong> added cognitive load without improving completion rate.</p>
+            <p class="variant-why"><strong>Explored because:</strong> revealing details step-by-step seemed right for reducing anxiety.<br><strong>Moved past:</strong> it deferred the key action behind screens users felt obligated to read. In high-stakes financial flows, upfront clarity outperforms staged revelation. Users didn't need less information — they needed it in one place, immediately.</p>
           </div>
         </div>
         <div class="variant-card">
@@ -623,10 +679,10 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
           <div class="variant-body">
             <span class="variant-label">Variant 03</span>
             <h3 class="variant-title">Nudge-forward approach</h3>
-            <p class="variant-why"><strong>Explored because:</strong> behavioural prompts could drive earlier renewals.<br><strong>Moved past:</strong> the core flow wasn't reliable enough to layer nudges on top.</p>
+            <p class="variant-why"><strong>Explored because:</strong> behavioural prompts could drive earlier renewals.<br><strong>Moved past:</strong> layering nudges on a flow users didn't trust was amplifying the problem, not solving it. Nudges work on reliable systems. Fix the foundation before optimising behaviour.</p>
           </div>
         </div>
-        <div class="variant-card selected">
+        <div class="variant-card selected" aria-label="Variant 04 — selected design direction">
           <div class="variant-thumb">
             <span class="variant-badge" aria-label="Selected design direction">Selected ✓</span>
             <img src="navi/Variant_4.webp" alt="Variant 4 — selected final design direction" loading="lazy">
@@ -640,8 +696,9 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
       </div>
 
       <div class="variant-selected-reason rv d4">
-        <p><strong>Why V4 won:</strong> Optimised for low cognitive load and fast completion — targeted communication covers trust gaps. Simplicity moves people. Complexity stalls them.</p>
+        <p><strong>Why V4 won:</strong> The only direction satisfying three constraints simultaneously — lowest cognitive load, highest engineering feasibility using existing components, and the clearest self-serve confidence signal in user review. It wasn't the most interesting design direction. It was the most appropriate one for a flow that had to earn trust on first use.</p>
       </div>
+      <p class="crossfunc-note rv d4">I reviewed all four directions with the PM and engineering lead before converging — V4 was the only one both teams could build reliably within the timeline.</p>
     </div>
   </section>
 
@@ -666,15 +723,40 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
           loop
           playsinline
           preload="none"
-          aria-label="Working prototype walkthrough of the final Navi renewal flow"
+          aria-label="Shipped flow — the complete Navi health insurance renewal experience recorded from the live app"
+          tabindex="0"
         ></video>
       </div>
-      <p class="video-caption rv">Working prototype — the complete renewal flow as designed and shipped at Navi.</p>
+      <p class="video-caption rv">Shipped flow — recorded from the live Navi app.</p>
+
+      <div class="before-after rv d3">
+        <div class="ba-card">
+          <span class="ba-label">Before — No product existed</span>
+          <ul class="ba-list">
+            <li>Renewal required calling Navi ops directly</li>
+            <li>Agent stayed on the line to process the policy</li>
+            <li>No entry point in the app — nothing to find</li>
+            <li>Policy lapsed if user didn't initiate the call</li>
+            <li>Every single renewal was an ops bottleneck</li>
+          </ul>
+        </div>
+        <div class="ba-card after">
+          <span class="ba-label">After — Shipped product</span>
+          <ul class="ba-list">
+            <li>Renewal surfaced on home screen 45 days before expiry</li>
+            <li>Clear status: policy expiry date, days remaining, coverage</li>
+            <li>Completion confirmation with next policy period shown</li>
+            <li>All steps completable in under 3 minutes</li>
+            <li>Ops shifted from default channel to fallback</li>
+          </ul>
+        </div>
+      </div>
 
       <div class="final-img rv d3">
         <img src="navi/Final.webp" alt="Final shipped design — the Navi health insurance renewal experience" loading="lazy">
       </div>
       <p class="final-caption rv">Final shipped design — the renewal entry point inside the Navi app.</p>
+      <p class="crossfunc-note rv d4">Working with engineering on feasibility constraints, the simplified flow turned out to be the lowest-risk build — which accelerated sign-off significantly.</p>
     </div>
   </section>
 
@@ -689,28 +771,28 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
           <div class="decision-num" aria-hidden="true">01</div>
           <div>
             <h3 class="decision-q">Why simplify instead of adding more reassurance UI?</h3>
-            <p class="decision-a">More screens = more drop-off. Contextual hints and communication cover trust gaps more effectively than additional interface.</p>
+            <p class="decision-a">The instinct was to add more — a reassurance modal, a 'your policy is safe' message, an explainer screen. But each additional screen correlated with higher drop-off in our funnel analysis. Contextual inline hints outperformed dedicated reassurance screens. The PM pushed for more hand-holding copy; we aligned on one confidence-building status summary at the top instead.</p>
           </div>
         </div>
         <div class="decision-row rv d2">
           <div class="decision-num" aria-hidden="true">02</div>
           <div>
             <h3 class="decision-q">Why fix the core flow before adding nudges?</h3>
-            <p class="decision-a">Nudges don't fix a broken flow — we shipped reliability first, then planned behaviour nudges from real post-launch data.</p>
+            <p class="decision-a">There was stakeholder appetite to push early renewal nudges immediately — a lower-effort intervention. But nudges are accelerators, not fixers. If users completed the flow 12% of the time, a better-timed nudge pushes 13% into a still-broken experience. We shipped the reliable foundation first and committed to a nudge layer in the next cycle, informed by real post-launch completion data.</p>
           </div>
         </div>
         <div class="decision-row rv d3">
           <div class="decision-num" aria-hidden="true">03</div>
           <div>
             <h3 class="decision-q">Why Variant 4 over the other three?</h3>
-            <p class="decision-a">Best balance of renewal clarity, minimal steps, self-serve confidence, and engineering feasibility.</p>
+            <p class="decision-a">V4 was the only direction satisfying three constraints simultaneously: lowest cognitive load (single status summary, minimal steps), highest engineering feasibility using existing components with no new API calls, and the clearest 'I can do this myself' confidence signal in user review. It wasn't the most interesting design direction — but it was the most appropriate one for a flow that had to earn trust on first use.</p>
           </div>
         </div>
         <div class="decision-row rv d4">
           <div class="decision-num" aria-hidden="true">04</div>
           <div>
             <h3 class="decision-q">What did we intentionally leave out of V1?</h3>
-            <p class="decision-a">Last-minute renewers — we shipped the foundational system first and let real data define the next lever.</p>
+            <p class="decision-a">We scoped out last-minute renewers (R11 behavioural nudges) and edge cases from the first release. The constraint was engineering bandwidth and launch risk. The principle: ship a system that works reliably for the majority, then use real data to decide the next lever. Assumptions-based prioritisation is how you build the wrong second thing.</p>
           </div>
         </div>
       </div>
@@ -723,22 +805,23 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
       <span class="s-tag rv">Impact</span>
       <h2 class="s-h2 rv d1">The numbers<br><em>moved.</em></h2>
 
-      <div class="impact-metrics impact-metrics--two rv d2">
-        <div class="impact-card highlight">
-          <div class="impact-before">68% baseline</div>
+      <ul class="impact-metrics--two rv d2" aria-label="Impact metrics" style="list-style:none;padding:0">
+        <li class="impact-card highlight">
+          <div class="impact-before">48% baseline</div>
           <span class="impact-arrow">↑</span>
-          <div class="impact-num" data-count="95" data-suffix="%">95%</div>
+          <div class="impact-num" data-count="95" data-suffix="%" aria-live="polite">95%</div>
           <div class="impact-label">In-app renewals</div>
-          <span class="impact-delta">~40% uplift</span>
-        </div>
-        <div class="impact-card highlight">
+          <span class="impact-delta">+47pp</span>
+        </li>
+        <li class="impact-card highlight">
           <div class="impact-before">&lt;12% baseline</div>
           <span class="impact-arrow">↑</span>
-          <div class="impact-num" data-count="40" data-suffix="%">40%</div>
+          <div class="impact-num" data-count="40" data-suffix="%" aria-live="polite">40%</div>
           <div class="impact-label">Early renewals at R11</div>
           <span class="impact-delta">~3× growth</span>
-        </div>
-      </div>
+        </li>
+      </ul>
+      <div class="impact-business rv d3">At a system level: renewal shifted from an ops-assisted process to a reliable self-serve product. Ops moved from dependency to fallback. The team now has the foundation — and the data — to build the next behaviour layer, informed by real post-launch completion patterns.</div>
     </div>
   </section>
 
@@ -748,20 +831,20 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
       <span class="s-tag rv">What I Learned</span>
       <h2 class="s-h2 rv d1">Ship the system.<br>Then <em>optimise behaviour.</em></h2>
 
-      <div class="learning-cards rv d2">
-        <div class="learning-card">
+      <ul class="learning-cards rv d2" aria-label="Project learnings">
+        <li class="learning-card">
           <span class="learning-num">Insight 01</span>
-          <p class="learning-text">Renewals are trust moments, not just payment steps. The experience has to feel safe before users will complete it on their own.</p>
-        </div>
-        <div class="learning-card">
+          <p class="learning-text">Trust is the real product in financial flows. Users didn't need more information — they needed a system that felt safe to act in. The UX problem was downstream of a trust problem.</p>
+        </li>
+        <li class="learning-card">
           <span class="learning-num">Insight 02</span>
-          <p class="learning-text">The fastest way to reduce lapsation is clarity and completion inside the app — not more UI, more screens, or more reassurance copy.</p>
-        </div>
-        <div class="learning-card">
+          <p class="learning-text">Progressive disclosure — a pattern that works in onboarding — actively hurt completion in a high-stakes renewal context. The right pattern depends on the user's goal, not the designer's preference.</p>
+        </li>
+        <li class="learning-card">
           <span class="learning-num">Insight 03</span>
-          <p class="learning-text">Real data from a shipped product is worth more than assumptions from research. Ship the foundation. Let the data tell you what to build next.</p>
-        </div>
-      </div>
+          <p class="learning-text">We left the nudge layer for V2. That felt like a gap at launch — but post-launch data gave us something more valuable: we knew exactly which users were still delaying, when, and why. Built on evidence, not guesses.</p>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -885,7 +968,8 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
     (function tick(now){
       var p=Math.min((now-start)/dur,1),ease=1-Math.pow(1-p,3);
       el.textContent=Math.floor(ease*target)+suffix;
-      if(p<1)requestAnimationFrame(tick);else el.textContent=target+suffix;
+      if(p<1)requestAnimationFrame(tick);
+      else{el.textContent=target+suffix;el.setAttribute('aria-label',target+suffix);}
     })(start);
   }
 })();
@@ -908,6 +992,13 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   vObs.observe(vid);
   vid.addEventListener('click',function(){
     if(vid.paused)vid.play();else vid.pause();
+  });
+  /* FIX 22: keyboard Enter/Space to toggle */
+  vid.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){
+      e.preventDefault();
+      if(vid.paused)vid.play();else vid.pause();
+    }
   });
 })();
 
