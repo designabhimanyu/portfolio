@@ -146,10 +146,7 @@ body:not(.kb) :focus{outline:none}
 /* ============================================================
    HERO
 ============================================================ */
-.cs-hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 72px;overflow:hidden}
-.cs-hero-bg{position:absolute;inset:0;background:url('navi/Final.webp') center 30% / cover no-repeat;z-index:0;transform:scale(1.04);transition:transform 8s ease}
-.cs-hero-bg.loaded{transform:scale(1)}
-.cs-hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(var(--hero-rgb),0.08) 0%,rgba(var(--hero-rgb),0.55) 45%,rgba(var(--hero-rgb),0.94) 75%,rgba(var(--hero-rgb),1) 100%);transition:background var(--dur) ease}
+.cs-hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 72px;overflow:hidden;background:var(--bg)}
 .cs-hero-content{position:relative;z-index:2;max-width:var(--max-w);margin:0 auto;padding:0 var(--pad);width:100%}
 .cs-hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;opacity:0;transform:translateY(16px);transition:opacity .7s ease .1s,transform .7s var(--ease) .1s}
 .cs-hero-chips.on{opacity:1;transform:translateY(0)}
@@ -183,7 +180,7 @@ body:not(.kb) :focus{outline:none}
 .stat-cards{display:flex;flex-direction:column;gap:14px}
 .stat-card{background:var(--surf);border:1px solid var(--bor);border-radius:var(--r);padding:24px 28px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background var(--dur) ease,border-color .3s}
 .stat-card:hover{border-color:var(--acb)}
-.stat-num{font-family:var(--font-d);font-size:clamp(28px,3vw,40px);font-weight:800;color:var(--ac);letter-spacing:-.03em;line-height:1;margin-bottom:6px;transition:color var(--dur) ease}
+.stat-num{font-family:var(--font-d);font-size:clamp(28px,3vw,40px);font-weight:800;color:var(--t1);letter-spacing:-.03em;line-height:1;margin-bottom:6px;transition:color var(--dur) ease}
 .stat-label{font-family:var(--font-b);font-size:13px;font-weight:300;color:var(--t2);line-height:1.55;transition:color var(--dur) ease}
 
 /* ============================================================
@@ -214,6 +211,17 @@ body:not(.kb) :focus{outline:none}
 .insight-chip{padding:10px 18px;border-radius:100px;border:1px solid var(--bor);background:var(--surf);font-family:var(--font-b);font-size:12px;font-weight:500;color:var(--t2);letter-spacing:.04em;transition:border-color .2s,color .2s,background var(--dur) ease}
 .insight-chip:hover{border-color:var(--acb);color:var(--ac)}
 .insight-callout{text-align:center;padding:72px var(--pad);background:var(--bg2);position:relative;overflow:hidden;transition:background var(--dur) ease}
+/* Research methods + insight cards */
+.research-methods{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.method-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:100px;border:1px solid var(--bor);background:var(--surf);font-family:var(--font-b);font-size:12px;font-weight:500;color:var(--t2);letter-spacing:.02em;transition:border-color .2s,background var(--dur) ease}
+.method-chip i{color:var(--ac);font-size:14px;transition:color var(--dur) ease}
+.method-chip:hover{border-color:var(--acb);color:var(--t1)}
+.research-ownership{font-family:var(--font-b);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:40px;transition:color var(--dur) ease}
+.insight-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:0}
+.insight-card{background:var(--surf);border:1px solid var(--bor);border-radius:14px;padding:22px 24px;display:flex;align-items:flex-start;gap:16px;transition:border-color .3s,background var(--dur) ease,transform .3s var(--ease)}
+.insight-card:hover{border-color:var(--acb);transform:translateY(-3px)}
+.insight-card-num{font-family:var(--font-d);font-size:11px;font-weight:700;color:var(--ac);letter-spacing:.1em;flex-shrink:0;padding-top:2px;transition:color var(--dur) ease}
+.insight-card-text{font-size:14px;font-weight:400;line-height:1.6;color:var(--t1);transition:color var(--dur) ease}
 .insight-callout::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(var(--pr),var(--pg),var(--pb),.07) 0%,transparent 65%);pointer-events:none}
 .insight-callout-label{font-family:var(--font-b);font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);display:block;margin-bottom:24px;transition:color var(--dur) ease}
 .insight-callout-text{font-family:var(--font-a);font-style:italic;font-weight:300;font-size:clamp(24px,3.5vw,48px);line-height:1.22;color:var(--t1);max-width:780px;margin:0 auto;transition:color var(--dur) ease}
@@ -270,6 +278,7 @@ body:not(.kb) :focus{outline:none}
    IMPACT
 ============================================================ */
 .impact-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-bottom:44px}
+.impact-metrics--two{grid-template-columns:1fr 1fr;max-width:780px;margin-left:auto;margin-right:auto}
 .impact-card{background:var(--surf);border:1px solid var(--bor);border-radius:var(--r);padding:36px 32px;text-align:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background var(--dur) ease,border-color .3s,transform .3s var(--ease)}
 .impact-card:hover{transform:translateY(-4px);border-color:var(--acb)}
 .impact-card.highlight{border-color:var(--acb);background:var(--acd)}
@@ -353,8 +362,10 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   .cs-hero-content{padding:0 32px}
   .context-grid{grid-template-columns:1fr;gap:44px}
   .impact-metrics{grid-template-columns:1fr 1fr}
+  .impact-metrics--two{grid-template-columns:1fr 1fr;max-width:100%}
   .impact-card:last-child{grid-column:span 2}
   .learning-cards{grid-template-columns:1fr}
+  .insight-cards{grid-template-columns:1fr}
   .next-zone{padding:64px 32px}
   footer{padding:18px 32px}
   .cs-hero{padding:0 0 64px}
@@ -375,6 +386,8 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   .persona-grid{grid-template-columns:1fr}
   .variant-grid{grid-template-columns:1fr}
   .impact-metrics{grid-template-columns:1fr}
+  .impact-metrics--two{grid-template-columns:1fr;max-width:100%}
+  .insight-cards{grid-template-columns:1fr}
   .learning-cards{grid-template-columns:1fr}
   .decision-row{grid-template-columns:50px 1fr;gap:18px}
   .insight-callout{padding:52px 24px}
@@ -399,7 +412,6 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   .grain,.btn-pri{animation:none !important}
   .rv{opacity:1 !important;transform:none !important}
   .cs-hero-h1,.cs-hero-sub,.cs-hero-chips,.cs-hero-metrics,.cs-hero-scroll{opacity:1 !important;transform:none !important}
-  .cs-hero-bg{transform:scale(1) !important}
 }
 </style>
 </head>
@@ -419,7 +431,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
     </a>
     <span class="nav-center">Abhimanyu Arya &nbsp;·&nbsp; <span>Navi</span></span>
     <div class="nav-right-cs">
-      <a href="mailto:abhimanyuaryawork@gmail.com" class="nav-cs-link">Let's talk →</a>
+      <a href="#connect" class="nav-cs-link" id="navSayHello">Say Hello →</a>
     </div>
     <button class="nav-ham" id="navHam" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navMob">
       <span aria-hidden="true"></span>
@@ -439,8 +451,6 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
 
   <!-- ══ ZONE 1: HERO ══════════════════════════════════════════ -->
   <section class="cs-hero" aria-label="Case study introduction">
-    <div class="cs-hero-bg" id="heroBg" aria-hidden="true"></div>
-    <div class="cs-hero-overlay" aria-hidden="true"></div>
     <div class="cs-hero-content">
       <div class="cs-hero-chips" id="heroChips">
         <span class="chip accent"><span class="chip-dot"></span>FinTech · Navi</span>
@@ -465,8 +475,10 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
           <span class="metric-pill-label">Early renewals</span>
         </div>
         <div class="metric-pill">
-          <span class="metric-pill-val">20</span>
-          <span class="metric-pill-label">User interviews</span>
+          <span class="metric-pill-val">85%</span>
+          <span class="metric-pill-arrow">→</span>
+          <span class="metric-pill-val">↓ Significantly</span>
+          <span class="metric-pill-label">R11 delayed renewals</span>
         </div>
       </div>
     </div>
@@ -483,21 +495,21 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
       <h2 class="s-h2 rv d1">Renewal existed.<br>It just didn't <em>work.</em></h2>
       <div class="context-grid">
         <div class="context-body">
-          <p class="rv d2">Health insurance renewal is time-critical. Miss the 12th-month premium and the policy lapses — no claims, no benefits. At Navi, users knew this. They just didn't trust the app to handle it.</p>
-          <p class="rv d3">The app had a renewal flow. But almost nobody used it. Ops teams were handling what should have been fully self-serve. Users were calling in, relying on external portals, and delaying until the very last moment. That's not a UX problem — that's a business-critical breakdown.</p>
+          <p class="rv d2">At Navi, the app had a renewal flow. Almost nobody used it. Users were calling ops, using external portals, and delaying to the last moment.</p>
+          <p class="rv d3">That's not a UX problem — that's a business breakdown. Ops was absorbing the cost of what should have been fully self-serve.</p>
         </div>
         <div class="stat-cards rv d2">
           <div class="stat-card">
             <div class="stat-num">68%</div>
-            <div class="stat-label">Renewals happening via the app — but not truly self-serve end-to-end</div>
+            <div class="stat-label">Renewals via app — but not truly self-serve</div>
           </div>
           <div class="stat-card">
             <div class="stat-num">&lt;12%</div>
-            <div class="stat-label">Users completing renewal through the intended in-app flow (heavy ops/portal reliance)</div>
+            <div class="stat-label">Used the intended in-app flow</div>
           </div>
           <div class="stat-card">
             <div class="stat-num">85%</div>
-            <div class="stat-label">Delayed until R11 — the 11th month — pushing lapsation risk to its peak</div>
+            <div class="stat-label">Delayed to R11 — peak lapsation risk</div>
           </div>
         </div>
       </div>
@@ -513,12 +525,12 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
         <div class="problem-card">
           <i class="ph-thin ph-user problem-card-icon" aria-hidden="true"></i>
           <h3 class="problem-card-title">Users were confused and anxious.</h3>
-          <p class="problem-card-body">What changes at renewal? What stays the same? How close am I to lapsation? The experience gave no clear answers — so people delayed, second-guessed, or called ops instead.</p>
+          <p class="problem-card-body">What changes at renewal? How close am I to lapsation? The experience gave no answers — so people delayed or called ops instead.</p>
         </div>
         <div class="problem-card">
           <i class="ph-thin ph-buildings problem-card-icon" aria-hidden="true"></i>
           <h3 class="problem-card-title">The business was absorbing the cost.</h3>
-          <p class="problem-card-body">Late renewals and ops dependency meant higher lapsation risk, significant operational overhead, and zero confidence that renewals could scale as a reliable, self-serve product.</p>
+          <p class="problem-card-body">Late renewals and ops dependency meant rising lapsation risk, operational overhead, and no path to scaling renewals as a reliable self-serve product.</p>
         </div>
       </div>
       <blockquote class="blockquote rv d3">
@@ -531,29 +543,41 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   <section class="zone zone-alt" id="research" aria-label="Research and insights">
     <div class="zi">
       <span class="s-tag rv">Research</span>
-      <h2 class="s-h2 rv d1">20 conversations.<br>One <em>insight</em> that changed everything.</h2>
-      <p class="s-sub rv d2">Navi's research team ran focused interviews — phone and Zoom, 20 participants. I synthesized the patterns to find what actually needed solving.</p>
+      <h2 class="s-h2 rv d1">Led discovery.<br>Found the <em>real job.</em></h2>
+      <p class="s-sub rv d2">I conducted exploratory interviews, shadowed ops teams, and audited the renewal funnel. Synthesized findings across 20 user conversations to identify core opportunity areas.</p>
 
       <figure class="zoom-img rv d2">
         <img src="navi/Zoom.webp" alt="Research sessions conducted over Zoom — 20 participant interviews, phone and video" loading="lazy">
       </figure>
-      <p class="zoom-caption rv">20 participant interviews across phone and Zoom — feedback on policy understanding and the existing app experience.</p>
+      <p class="zoom-caption rv">20 participant interviews · Phone + Zoom · Policy understanding + app experience</p>
 
-      <div class="persona-grid rv d3">
-        <div class="persona-card">
-          <img src="navi/User_Persona_1.webp" alt="User Persona 1 — primary renewal persona synthesized from research" loading="lazy">
-        </div>
-        <div class="persona-card">
-          <img src="navi/User_Persona_2.webp" alt="User Persona 2 — secondary renewal persona synthesized from research" loading="lazy">
-        </div>
+      <div class="research-methods rv d3">
+        <span class="method-chip"><i class="ph-thin ph-users" aria-hidden="true"></i>20 user interviews</span>
+        <span class="method-chip"><i class="ph-thin ph-headset" aria-hidden="true"></i>Ops shadowing</span>
+        <span class="method-chip"><i class="ph-thin ph-map-trifold" aria-hidden="true"></i>Journey audit</span>
+        <span class="method-chip"><i class="ph-thin ph-chart-bar" aria-hidden="true"></i>Funnel analysis</span>
+        <span class="method-chip"><i class="ph-thin ph-chats" aria-hidden="true"></i>Stakeholder conversations</span>
       </div>
 
-      <div class="insight-chips rv d3">
-        <span class="insight-chip">Clear policy info upfront</span>
-        <span class="insight-chip">Fast + obvious renewal flow</span>
-        <span class="insight-chip">Simple UX beats clever features</span>
-        <span class="insight-chip">Timely reminders matter</span>
-        <span class="insight-chip">Personalisation builds trust</span>
+      <p class="research-ownership rv d3">Led discovery · Synthesized findings · Identified opportunity areas</p>
+
+      <div class="insight-cards rv d4">
+        <div class="insight-card">
+          <span class="insight-card-num">01</span>
+          <p class="insight-card-text">Users didn't trust app-based renewal — ops felt safer</p>
+        </div>
+        <div class="insight-card">
+          <span class="insight-card-num">02</span>
+          <p class="insight-card-text">Renewal entry points were buried and easy to miss</p>
+        </div>
+        <div class="insight-card">
+          <span class="insight-card-num">03</span>
+          <p class="insight-card-text">85% of users delayed until R11, maximising lapsation risk</p>
+        </div>
+        <div class="insight-card">
+          <span class="insight-card-num">04</span>
+          <p class="insight-card-text">Ops dependency had replaced self-serve as the default path</p>
+        </div>
       </div>
     </div>
   </section>
@@ -569,7 +593,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
     <div class="zi">
       <span class="s-tag rv">Exploration</span>
       <h2 class="s-h2 rv d1">Four directions.<br>One <em>winner.</em></h2>
-      <p class="s-sub rv d2">We explored 4 design variants before aligning with product and engineering. The decision balanced user confidence, simplicity, and rollout feasibility.</p>
+      <p class="s-sub rv d2">Rather than optimising the existing flow, I explored four strategic directions before converging on one scalable solution.</p>
 
       <div class="variant-grid rv d3">
         <div class="variant-card">
@@ -616,7 +640,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
       </div>
 
       <div class="variant-selected-reason rv d4">
-        <p><strong>Why Variant 4 and not the others:</strong> We optimised for low cognitive load and fast completion — then used targeted communication to cover any trust gaps. Simplicity moves people. Complexity stalls them.</p>
+        <p><strong>Why V4 won:</strong> Optimised for low cognitive load and fast completion — targeted communication covers trust gaps. Simplicity moves people. Complexity stalls them.</p>
       </div>
     </div>
   </section>
@@ -665,28 +689,28 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
           <div class="decision-num" aria-hidden="true">01</div>
           <div>
             <h3 class="decision-q">Why simplify instead of adding more reassurance UI?</h3>
-            <p class="decision-a">More screens = more drop-off. We optimised for low cognitive load and fast completion, using contextual hints and communications to build trust — not more interface.</p>
+            <p class="decision-a">More screens = more drop-off. Contextual hints and communication cover trust gaps more effectively than additional interface.</p>
           </div>
         </div>
         <div class="decision-row rv d2">
           <div class="decision-num" aria-hidden="true">02</div>
           <div>
             <h3 class="decision-q">Why fix the core flow before adding nudges?</h3>
-            <p class="decision-a">Nudges don't fix a broken flow — they amplify it. We made renewal work reliably end-to-end first, then used real post-launch data to plan targeted behaviour nudges.</p>
+            <p class="decision-a">Nudges don't fix a broken flow — we shipped reliability first, then planned behaviour nudges from real post-launch data.</p>
           </div>
         </div>
         <div class="decision-row rv d3">
           <div class="decision-num" aria-hidden="true">03</div>
           <div>
             <h3 class="decision-q">Why Variant 4 over the other three?</h3>
-            <p class="decision-a">It best balanced clarity of renewal status, minimal steps to completion, the strongest "I can do this myself" confidence signal, and engineering feasibility for rollout speed.</p>
+            <p class="decision-a">Best balance of renewal clarity, minimal steps, self-serve confidence, and engineering feasibility.</p>
           </div>
         </div>
         <div class="decision-row rv d4">
           <div class="decision-num" aria-hidden="true">04</div>
           <div>
             <h3 class="decision-q">What did we intentionally leave out of V1?</h3>
-            <p class="decision-a">We didn't over-index on last-minute renewers. We shipped the foundational system first and used real data to identify the next lever — instead of designing for assumptions.</p>
+            <p class="decision-a">Last-minute renewers — we shipped the foundational system first and let real data define the next lever.</p>
           </div>
         </div>
       </div>
@@ -697,9 +721,9 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   <section class="zone zone-alt" id="impact" aria-label="Impact and results">
     <div class="zi">
       <span class="s-tag rv">Impact</span>
-      <h2 class="s-h2 rv d1">The numbers moved.<br>And one told us what to do <em>next.</em></h2>
+      <h2 class="s-h2 rv d1">The numbers<br><em>moved.</em></h2>
 
-      <div class="impact-metrics rv d2">
+      <div class="impact-metrics impact-metrics--two rv d2">
         <div class="impact-card highlight">
           <div class="impact-before">68% baseline</div>
           <span class="impact-arrow">↑</span>
@@ -714,49 +738,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
           <div class="impact-label">Early renewals at R11</div>
           <span class="impact-delta">~3× growth</span>
         </div>
-        <div class="impact-card opportunity">
-          <div class="impact-before">Post-launch insight</div>
-          <span class="impact-arrow" style="color:var(--t3)">→</span>
-          <div class="impact-num" data-count="25" data-suffix="%">25%</div>
-          <div class="impact-label">Still renewing at lapsation</div>
-          <span class="impact-delta" style="background:var(--ga);color:var(--t2)">Next opportunity</span>
-        </div>
       </div>
-
-      <div class="impact-insight rv d3">
-        <strong>What this means:</strong> Renewals moved fully in-app and behaviour shifted earlier — but 25% still wait until the last moment. That's not a failure. That's the next product problem, clearly defined by real data.
-      </div>
-
-      <table class="impact-table rv d4" aria-label="Impact metrics summary">
-        <thead>
-          <tr>
-            <th scope="col">Metric</th>
-            <th scope="col">Before</th>
-            <th scope="col">After</th>
-            <th scope="col">Impact</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>In-app renewals</td>
-            <td>68%</td>
-            <td class="good">95%</td>
-            <td>~40% uplift</td>
-          </tr>
-          <tr>
-            <td>Early renewals at R11</td>
-            <td>&lt;12%</td>
-            <td class="good">40%</td>
-            <td>~3× growth</td>
-          </tr>
-          <tr>
-            <td>Lapsation-window renewals</td>
-            <td>—</td>
-            <td>25%</td>
-            <td>Next scope identified</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </section>
 
@@ -816,13 +798,8 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   document.documentElement.setAttribute('data-mode',m);
 })();
 
-/* ══ 2. HERO IMAGE LOAD ══════════════════════════ */
+/* ══ 2. HERO ANIMATIONS ══════════════════════════ */
 (function(){
-  var bg=document.getElementById('heroBg');
-  var img=new Image();
-  img.onload=function(){if(bg)bg.classList.add('loaded');};
-  img.src='navi/Final.webp';
-  // Trigger hero animations on load
   setTimeout(function(){
     var els=['heroChips','heroH1','heroSub','heroMetrics','heroScroll'];
     els.forEach(function(id,i){
@@ -967,7 +944,16 @@ function closeMob(){
   ham.setAttribute('aria-expanded','false');document.body.style.overflow='';
 }
 
-/* ══ 11. KEYBOARD SUPPORT ════════════════════════ */
+/* ══ 12. SAY HELLO SCROLL ════════════════════════ */
+(function(){
+  var btn=document.getElementById('navSayHello');
+  if(!btn)return;
+  btn.addEventListener('click',function(e){
+    e.preventDefault();
+    var target=document.querySelector('.next-zone');
+    if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+})();
 document.addEventListener('keydown',function(){document.body.classList.add('kb');});
 document.addEventListener('mousedown',function(){document.body.classList.remove('kb');});
 </script>
