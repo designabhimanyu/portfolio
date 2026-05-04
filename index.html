@@ -10,6 +10,18 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,700;12..96,800&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=plus-jakarta-sans@300,400,500,600,700&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var h=new Date().getHours();
+  var m=h>=5&&h<9?'morning':h>=9&&h<16?'afternoon':h>=16&&h<19?'evening':'night';
+  var link=document.createElement('link');
+  link.rel='preload';
+  link.as='image';
+  link.href='Illustrations/'+m+'.webp';
+  link.fetchPriority='high';
+  document.head.appendChild(link);
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <style>
@@ -26,13 +38,13 @@
 
 /* IMAGE LOADING — CSS attribute selectors */
 html[data-mode="brahmamuhurta"] .intro-bg,
-html[data-mode="brahmamuhurta"] .about-illus { background-image:url("Illustrations/morning.png") }
+html[data-mode="brahmamuhurta"] .about-illus { background-image:url("Illustrations/morning.webp") }
 html[data-mode="dhoop"] .intro-bg,
-html[data-mode="dhoop"] .about-illus         { background-image:url("Illustrations/afternoon.png") }
+html[data-mode="dhoop"] .about-illus         { background-image:url("Illustrations/afternoon.webp") }
 html[data-mode="sandhya"] .intro-bg,
-html[data-mode="sandhya"] .about-illus       { background-image:url("Illustrations/evening.png") }
+html[data-mode="sandhya"] .about-illus       { background-image:url("Illustrations/evening.webp") }
 html[data-mode="raat"] .intro-bg,
-html[data-mode="raat"] .about-illus          { background-image:url("Illustrations/night.png") }
+html[data-mode="raat"] .about-illus          { background-image:url("Illustrations/night.webp") }
 
 /* ── BRAHMAMUHURTA — Warm morning light ── */
 [data-mode="brahmamuhurta"] {
