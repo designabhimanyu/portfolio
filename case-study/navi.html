@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dhoop">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navi — Health Insurance Renewal · Abhimanyu Arya</title>
+<meta name="description" content="How I took Navi's in-app health insurance renewals from 12% to 95% — a FinTech product design case study by Abhimanyu Arya.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,700;12..96,800&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=plus-jakarta-sans@300,400,500,600,700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<style>
+/* ============================================================
+   DESIGN TOKENS — all four modes (exact match with index.html)
+============================================================ */
+:root {
+  --font-d:"Bricolage Grotesque",sans-serif;
+  --font-b:"Plus Jakarta Sans",-apple-system,sans-serif;
+  --font-a:"Fraunces",Georgia,serif;
+  --pad:56px; --pad-m:24px; --max-w:1240px; --r:20px;
+  --ease:cubic-bezier(0.16,1,0.3,1); --dur:2.2s;
+}
+[data-mode="brahmamuhurta"] {
+  --bg:#F6EFE3; --bg2:#EDE5D4; --surf:rgba(255,252,245,0.82); --bor:rgba(28,20,8,0.08);
+  --nav-bg-rgb:246,239,227; --hero-rgb:246,239,227;
+  --t1:#1C1408; --t2:#5A4028; --t3:#8A6840;
+  --ac:#A86C0E; --ac2:#7FA060; --acd:rgba(168,108,14,0.10); --acb:rgba(168,108,14,0.25);
+  --pr:168; --pg:108; --pb:14;
+  --bc:#4A2808; --tc:#F5ECD8; --tc2:rgba(245,236,216,0.68); --bf:#301804;
+  --ga:rgba(168,108,14,0.08); --gb:rgba(127,160,96,0.06);
+  --cur:rgba(168,108,14,0.95); --curg:rgba(168,108,14,0.22);
+}
+[data-mode="dhoop"] {
+  --bg:#FAFCEE; --bg2:#EEF5D8; --surf:rgba(255,255,250,0.80); --bor:rgba(16,14,4,0.08);
+  --nav-bg-rgb:250,252,238; --hero-rgb:250,252,238;
+  --t1:#100E04; --t2:#4A3A14; --t3:#7A6830;
+  --ac:#3E9810; --ac2:#2A8FD4; --acd:rgba(62,152,16,0.10); --acb:rgba(62,152,16,0.25);
+  --pr:62; --pg:152; --pb:16;
+  --bc:#143808; --tc:#EEF5D8; --tc2:rgba(238,245,216,0.68); --bf:#0A2204;
+  --ga:rgba(62,152,16,0.08); --gb:rgba(42,143,212,0.05);
+  --cur:rgba(62,152,16,0.95); --curg:rgba(62,152,16,0.22);
+}
+[data-mode="sandhya"] {
+  --bg:#100A06; --bg2:#1E1208; --surf:rgba(255,255,255,0.042); --bor:rgba(240,180,100,0.09);
+  --nav-bg-rgb:16,10,6; --hero-rgb:16,10,6;
+  --t1:#F5ECD8; --t2:#C09870; --t3:#806040;
+  --ac:#E06018; --ac2:#A04EC8; --acd:rgba(224,96,24,0.13); --acb:rgba(224,96,24,0.32);
+  --pr:224; --pg:96; --pb:24;
+  --bc:#3D2010; --tc:#F5ECD8; --tc2:rgba(245,236,216,0.65); --bf:#0A0604;
+  --ga:rgba(224,96,24,0.09); --gb:rgba(160,78,200,0.06);
+  --cur:rgba(245,236,216,0.95); --curg:rgba(245,236,216,0.18);
+}
+[data-mode="raat"] {
+  --bg:#05070D; --bg2:#0A0C1A; --surf:rgba(255,255,255,0.038); --bor:rgba(255,255,255,0.07);
+  --nav-bg-rgb:5,7,13; --hero-rgb:5,7,13;
+  --t1:#E8EEF8; --t2:#9AAAC4; --t3:#606E88;
+  --ac:#C89050; --ac2:#4A72C4; --acd:rgba(200,144,80,0.12); --acb:rgba(200,144,80,0.30);
+  --pr:200; --pg:144; --pb:80;
+  --bc:#141828; --tc:#E8EEF8; --tc2:rgba(232,238,248,0.62); --bf:#020308;
+  --ga:rgba(200,144,80,0.08); --gb:rgba(74,114,196,0.05);
+  --cur:rgba(200,144,80,0.95); --curg:rgba(200,144,80,0.22);
+}
+
+/* ============================================================
+   RESET
+============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:auto;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-b);font-weight:300;line-height:1.65;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;cursor:none;overflow-x:hidden;transition:background-color var(--dur) ease,color var(--dur) ease}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{font-family:var(--font-b);background:none;border:none;cursor:none}
+ul{list-style:none}
+.skip{position:fixed;top:-120px;left:var(--pad);z-index:99999;padding:10px 20px;background:var(--ac);color:#fff;font-size:13px;font-weight:500;border-radius:8px;transition:top .2s}
+.skip:focus{top:20px}
+body.kb :focus-visible{outline:2px solid var(--ac);outline-offset:3px;border-radius:3px}
+body:not(.kb) :focus{outline:none}
+
+/* ============================================================
+   GRAIN
+============================================================ */
+.grain{position:fixed;inset:-80px;width:calc(100% + 160px);height:calc(100% + 160px);pointer-events:none;z-index:9980;opacity:.020;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;animation:grain .45s steps(1) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-4%,-3%)}50%{transform:translate(3%,5%)}75%{transform:translate(-2%,4%)}100%{transform:translate(3%,-2%)}}
+
+/* ============================================================
+   PROGRESS BAR
+============================================================ */
+.progress{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--ac);z-index:9999;transition:width .1s linear,background var(--dur) ease;pointer-events:none}
+
+/* ============================================================
+   CURSOR
+============================================================ */
+.c-dot{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--cur);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:background var(--dur) ease,width .22s,height .22s,opacity .18s;will-change:left,top}
+.c-ring{position:fixed;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--cur);opacity:.32;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:border-color var(--dur) ease,width .32s var(--ease),height .32s var(--ease),opacity .3s;will-change:left,top}
+.c-glow{position:fixed;width:56px;height:56px;border-radius:50%;background:radial-gradient(circle,var(--curg) 0%,transparent 70%);pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:background var(--dur) ease;will-change:left,top}
+.c-ring.big{width:66px;height:66px;opacity:.15}
+.c-glow.big{width:88px;height:88px}
+.c-dot.hide{opacity:0}
+.sparkle{position:fixed;border-radius:50%;pointer-events:none;z-index:9995;transform:translate(-50%,-50%);background:var(--cur);animation:sp .52s ease forwards}
+@keyframes sp{0%{transform:translate(-50%,-50%) scale(1);opacity:.75}100%{transform:translate(-50%,-50%) scale(0);opacity:0}}
+
+/* ============================================================
+   NAV
+============================================================ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:800;transition:background var(--dur) ease,border-color .3s ease}
+.nav-inner{max-width:1240px;margin:0 auto;padding:20px 56px;display:flex;justify-content:space-between;align-items:center;transition:padding .3s ease}
+.nav-bg{position:absolute;inset:0;z-index:-1;background:rgba(246,239,227,0);backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);border-bottom:0.5px solid transparent;transition:background .35s ease,backdrop-filter .35s ease,-webkit-backdrop-filter .35s ease,border-color .35s ease}
+.nav.scrolled .nav-bg{background:rgba(var(--nav-bg-rgb),0.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom-color:var(--bor)}
+.nav.scrolled .nav-inner{padding:14px 56px}
+.nav-back{font-family:var(--font-b);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);display:flex;align-items:center;gap:8px;padding:10px 0;transition:color .2s,opacity .2s;min-height:44px}
+.nav-back:hover{color:var(--ac)}
+.nav-back i{font-size:14px;transition:transform .25s var(--ease)}
+.nav-back:hover i{transform:translateX(-3px)}
+.nav-center{font-family:var(--font-b);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);transition:color var(--dur) ease;white-space:nowrap}
+.nav-center span{color:var(--ac)}
+.nav-right-cs{display:flex;align-items:center;gap:20px}
+.nav-cs-link{font-family:var(--font-b);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);padding:10px 0;min-height:44px;display:flex;align-items:center;transition:color .2s}
+.nav-cs-link:hover{color:var(--ac)}
+.nav-ham{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;padding:10px 6px;color:var(--t1);flex-shrink:0}
+.nav-ham span{display:block;height:1.5px;width:100%;background:currentColor;border-radius:2px;transition:transform .3s var(--ease),opacity .3s}
+.nav-ham.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-ham.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.nav-mob{display:none;position:fixed;inset:0;z-index:790;background:rgba(4,6,14,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);flex-direction:column;align-items:center;justify-content:center;gap:44px}
+.nav-mob.open{display:flex}
+.nav-mob a{font-family:var(--font-d);font-size:clamp(28px,6vw,38px);font-weight:700;color:rgba(255,255,255,.82);transition:color .2s;padding:8px 0}
+.nav-mob a:hover{color:#fff}
+
+/* ============================================================
+   SHARED SECTION UTILITIES
+============================================================ */
+.zone{padding:100px var(--pad);position:relative;z-index:3;transition:background-color var(--dur) ease}
+.zi{max-width:var(--max-w);margin:0 auto}
+.s-tag{font-family:var(--font-b);font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);margin-bottom:14px;display:block;transition:color var(--dur) ease}
+.s-h2{font-family:var(--font-d);font-size:clamp(26px,3.8vw,44px);font-weight:700;letter-spacing:-.025em;line-height:1.08;color:var(--t1);margin-bottom:52px;transition:color var(--dur) ease}
+.s-h2 em{font-family:var(--font-a);font-style:italic;font-weight:300;color:var(--ac);transition:color var(--dur) ease}
+.s-sub{font-family:var(--font-b);font-size:clamp(15px,1.4vw,18px);font-weight:300;color:var(--t2);line-height:1.72;margin-bottom:52px;max-width:640px;transition:color var(--dur) ease}
+.zone-alt{background:var(--bg2)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .85s ease,transform .85s var(--ease)}
+.rv.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* ============================================================
+   HERO
+============================================================ */
+.cs-hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 72px;overflow:hidden}
+.cs-hero-bg{position:absolute;inset:0;background:url('navi/Final.webp') center 30% / cover no-repeat;z-index:0;transform:scale(1.04);transition:transform 8s ease}
+.cs-hero-bg.loaded{transform:scale(1)}
+.cs-hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(var(--hero-rgb),0.08) 0%,rgba(var(--hero-rgb),0.55) 45%,rgba(var(--hero-rgb),0.94) 75%,rgba(var(--hero-rgb),1) 100%);transition:background var(--dur) ease}
+.cs-hero-content{position:relative;z-index:2;max-width:var(--max-w);margin:0 auto;padding:0 var(--pad);width:100%}
+.cs-hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;opacity:0;transform:translateY(16px);transition:opacity .7s ease .1s,transform .7s var(--ease) .1s}
+.cs-hero-chips.on{opacity:1;transform:translateY(0)}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;border:1px solid var(--bor);background:var(--surf);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-family:var(--font-b);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);white-space:nowrap;transition:border-color var(--dur) ease,background var(--dur) ease,color var(--dur) ease}
+.chip.accent{border-color:var(--acb);color:var(--ac);background:var(--acd)}
+.chip-dot{width:5px;height:5px;border-radius:50%;background:var(--ac);flex-shrink:0}
+.cs-hero-h1{font-family:var(--font-d);font-size:clamp(36px,5.5vw,72px);font-weight:800;line-height:1.02;letter-spacing:-.035em;color:var(--t1);margin-bottom:20px;max-width:760px;opacity:0;transform:translateY(20px);transition:opacity .75s ease .25s,transform .75s var(--ease) .25s,color var(--dur) ease}
+.cs-hero-h1.on{opacity:1;transform:translateY(0)}
+.cs-hero-h1 em{font-family:var(--font-a);font-style:italic;font-weight:300;color:var(--ac)}
+.cs-hero-sub{font-family:var(--font-b);font-size:clamp(14px,1.4vw,18px);font-weight:300;color:var(--t2);line-height:1.72;max-width:560px;margin-bottom:36px;opacity:0;transform:translateY(16px);transition:opacity .7s ease .4s,transform .7s var(--ease) .4s,color var(--dur) ease}
+.cs-hero-sub.on{opacity:1;transform:translateY(0)}
+.cs-hero-metrics{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px;opacity:0;transform:translateY(16px);transition:opacity .7s ease .55s,transform .7s var(--ease) .55s}
+.cs-hero-metrics.on{opacity:1;transform:translateY(0)}
+.metric-pill{display:flex;align-items:center;gap:10px;padding:10px 20px;border-radius:100px;border:1px solid var(--acb);background:var(--acd);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.metric-pill-val{font-family:var(--font-d);font-size:clamp(15px,1.5vw,19px);font-weight:800;color:var(--ac);transition:color var(--dur) ease}
+.metric-pill-arrow{font-family:var(--font-d);font-size:14px;font-weight:600;color:var(--t3);padding:0 2px}
+.metric-pill-label{font-family:var(--font-b);font-size:11px;font-weight:400;color:var(--t2);letter-spacing:.02em;transition:color var(--dur) ease}
+.cs-hero-scroll{position:absolute;bottom:72px;right:var(--pad);display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;transition:opacity .7s ease .9s;z-index:2}
+.cs-hero-scroll.on{opacity:1}
+.cs-hero-scroll-text{font-family:var(--font-b);font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--t3);writing-mode:vertical-rl;transition:color var(--dur) ease}
+.cs-hero-scroll-line{width:1px;height:52px;background:var(--bor);position:relative;overflow:hidden}
+.cs-hero-scroll-line::after{content:"";position:absolute;top:0;left:0;right:0;height:45%;background:var(--ac);animation:drip 1.8s ease-in-out infinite}
+@keyframes drip{0%{transform:translateY(-100%)}100%{transform:translateY(300%)}}
+
+/* ============================================================
+   CONTEXT
+============================================================ */
+.context-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.context-body p{font-size:clamp(15px,1.4vw,17px);font-weight:300;line-height:1.82;color:var(--t2);margin-bottom:18px;transition:color var(--dur) ease}
+.context-body p:last-child{margin-bottom:0}
+.stat-cards{display:flex;flex-direction:column;gap:14px}
+.stat-card{background:var(--surf);border:1px solid var(--bor);border-radius:var(--r);padding:24px 28px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background var(--dur) ease,border-color .3s}
+.stat-card:hover{border-color:var(--acb)}
+.stat-num{font-family:var(--font-d);font-size:clamp(28px,3vw,40px);font-weight:800;color:var(--ac);letter-spacing:-.03em;line-height:1;margin-bottom:6px;transition:color var(--dur) ease}
+.stat-label{font-family:var(--font-b);font-size:13px;font-weight:300;color:var(--t2);line-height:1.55;transition:color var(--dur) ease}
+
+/* ============================================================
+   PROBLEM
+============================================================ */
+.problem-cards{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:40px}
+.problem-card{background:var(--surf);border:1px solid var(--bor);border-radius:var(--r);padding:36px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background var(--dur) ease,border-color .3s,transform .3s var(--ease)}
+.problem-card:hover{transform:translateY(-4px);border-color:var(--acb)}
+.problem-card-icon{font-size:28px;color:var(--ac);display:block;margin-bottom:16px;transition:color var(--dur) ease}
+.problem-card-title{font-family:var(--font-d);font-size:clamp(16px,1.6vw,20px);font-weight:700;letter-spacing:-.02em;color:var(--t1);margin-bottom:12px;transition:color var(--dur) ease}
+.problem-card-body{font-size:14px;font-weight:300;line-height:1.75;color:var(--t2);transition:color var(--dur) ease}
+.blockquote{border-left:2px solid var(--ac);padding:24px 32px;background:var(--acd);border-radius:0 var(--r) var(--r) 0;margin:0;transition:background var(--dur) ease,border-color var(--dur) ease}
+.blockquote p{font-family:var(--font-b);font-size:clamp(15px,1.5vw,18px);font-weight:400;font-style:italic;color:var(--t1);line-height:1.65;transition:color var(--dur) ease}
+
+/* ============================================================
+   RESEARCH
+============================================================ */
+.zoom-img{width:100%;border-radius:var(--r);margin-bottom:14px;display:block;overflow:hidden}
+.zoom-img img{width:100%;height:360px;object-fit:cover;object-position:center;border-radius:var(--r);transition:transform .5s var(--ease)}
+.zoom-img:hover img{transform:scale(1.02)}
+.zoom-caption{font-family:var(--font-b);font-size:12px;font-weight:400;color:var(--t3);letter-spacing:.04em;margin-bottom:52px;transition:color var(--dur) ease}
+.persona-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:52px}
+.persona-card{border-radius:var(--r);overflow:hidden;border:1px solid var(--bor);background:var(--surf);transition:border-color .3s,transform .35s var(--ease)}
+.persona-card:hover{transform:translateY(-4px);border-color:var(--acb)}
+.persona-card img{width:100%;height:auto;display:block;transition:transform .5s var(--ease)}
+.persona-card:hover img{transform:scale(1.02)}
+.insight-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:60px}
+.insight-chip{padding:10px 18px;border-radius:100px;border:1px solid var(--bor);background:var(--surf);font-family:var(--font-b);font-size:12px;font-weight:500;color:var(--t2);letter-spacing:.04em;transition:border-color .2s,color .2s,background var(--dur) ease}
+.insight-chip:hover{border-color:var(--acb);color:var(--ac)}
+.insight-callout{text-align:center;padding:72px var(--pad);background:var(--bg2);position:relative;overflow:hidden;transition:background var(--dur) ease}
+.insight-callout::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(var(--pr),var(--pg),var(--pb),.07) 0%,transparent 65%);pointer-events:none}
+.insight-callout-label{font-family:var(--font-b);font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);display:block;margin-bottom:24px;transition:color var(--dur) ease}
+.insight-callout-text{font-family:var(--font-a);font-style:italic;font-weight:300;font-size:clamp(24px,3.5vw,48px);line-height:1.22;color:var(--t1);max-width:780px;margin:0 auto;transition:color var(--dur) ease}
+.insight-callout-text em{color:var(--ac);font-style:italic}
+
+/* ============================================================
+   EXPLORATION
+============================================================ */
+.variant-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.variant-card{background:var(--surf);border:1px solid var(--bor);border-radius:var(--r);overflow:hidden;transition:transform .35s var(--ease),border-color .3s,background var(--dur) ease}
+.variant-card:hover{transform:translateY(-5px)}
+.variant-card.selected{border-color:var(--acb);box-shadow:0 0 0 3px rgba(var(--pr),var(--pg),var(--pb),.12)}
+.variant-thumb{position:relative;overflow:hidden;height:0;padding-bottom:62%}
+.variant-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.variant-card:hover .variant-thumb img{transform:scale(1.04)}
+.variant-card.selected .variant-thumb img{opacity:1}
+.variant-card:not(.selected) .variant-thumb img{opacity:.82}
+.variant-badge{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:100px;font-family:var(--font-b);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--ac);color:#fff;z-index:2}
+.variant-body{padding:22px 24px}
+.variant-label{font-family:var(--font-b);font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--ac);margin-bottom:8px;display:block;transition:color var(--dur) ease}
+.variant-title{font-family:var(--font-d);font-size:clamp(15px,1.4vw,17px);font-weight:700;letter-spacing:-.02em;color:var(--t1);margin-bottom:8px;transition:color var(--dur) ease}
+.variant-why{font-size:13px;font-weight:300;line-height:1.65;color:var(--t2);transition:color var(--dur) ease}
+.variant-why strong{font-weight:500;color:var(--t1);transition:color var(--dur) ease}
+.variant-selected-reason{margin-top:32px;padding:24px 28px;background:var(--acd);border:1px solid var(--acb);border-radius:var(--r);transition:background var(--dur) ease}
+.variant-selected-reason p{font-size:14px;font-weight:300;line-height:1.72;color:var(--t2);transition:color var(--dur) ease}
+.variant-selected-reason strong{font-weight:600;color:var(--ac)}
+
+/* ============================================================
+   SOLUTION
+============================================================ */
+.solution-principles{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px}
+.principle-chip{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:100px;border:1px solid var(--bor);background:var(--surf);font-family:var(--font-b);font-size:12px;font-weight:500;color:var(--t2);transition:border-color .2s,background var(--dur) ease}
+.principle-chip i{color:var(--ac);font-size:14px}
+.video-wrap{position:relative;border-radius:var(--r);overflow:hidden;background:#000;margin-bottom:14px;box-shadow:0 24px 80px rgba(0,0,0,.18)}
+.video-wrap video{width:100%;display:block;border-radius:var(--r)}
+.video-caption{font-family:var(--font-b);font-size:12px;font-weight:400;color:var(--t3);letter-spacing:.04em;margin-bottom:44px;text-align:center;transition:color var(--dur) ease}
+.final-img{width:100%;border-radius:var(--r);overflow:hidden;border:1px solid var(--bor);transition:border-color .3s}
+.final-img img{width:100%;height:auto;display:block;transition:transform .5s var(--ease)}
+.final-img:hover img{transform:scale(1.02)}
+.final-caption{font-family:var(--font-b);font-size:12px;font-weight:400;color:var(--t3);letter-spacing:.04em;margin-top:12px;text-align:center;transition:color var(--dur) ease}
+
+/* ============================================================
+   DECISIONS
+============================================================ */
+.decision-list{display:flex;flex-direction:column;gap:0}
+.decision-row{display:grid;grid-template-columns:80px 1fr;gap:28px;align-items:start;padding:36px 0;border-bottom:1px solid var(--bor);transition:border-color var(--dur) ease}
+.decision-row:last-child{border-bottom:none}
+.decision-num{font-family:var(--font-d);font-size:clamp(36px,3.5vw,52px);font-weight:800;color:var(--acd);letter-spacing:-.04em;line-height:1;padding-top:4px;transition:color var(--dur) ease}
+.decision-row:hover .decision-num{color:var(--acb)}
+.decision-q{font-family:var(--font-d);font-size:clamp(16px,1.6vw,20px);font-weight:700;letter-spacing:-.02em;color:var(--t1);margin-bottom:10px;line-height:1.22;transition:color var(--dur) ease}
+.decision-a{font-size:14px;font-weight:300;line-height:1.75;color:var(--t2);max-width:620px;transition:color var(--dur) ease}
+
+/* ============================================================
+   IMPACT
+============================================================ */
+.impact-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-bottom:44px}
+.impact-card{background:var(--surf);border:1px solid var(--bor);border-radius:var(--r);padding:36px 32px;text-align:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background var(--dur) ease,border-color .3s,transform .3s var(--ease)}
+.impact-card:hover{transform:translateY(-4px);border-color:var(--acb)}
+.impact-card.highlight{border-color:var(--acb);background:var(--acd)}
+.impact-before{font-family:var(--font-b);font-size:13px;font-weight:400;color:var(--t3);margin-bottom:8px;transition:color var(--dur) ease}
+.impact-arrow{font-family:var(--font-d);font-size:22px;font-weight:700;color:var(--ac);display:block;margin:6px 0;transition:color var(--dur) ease}
+.impact-num{font-family:var(--font-d);font-size:clamp(44px,5vw,72px);font-weight:800;letter-spacing:-.04em;color:var(--ac);line-height:1;transition:color var(--dur) ease}
+.impact-label{font-family:var(--font-b);font-size:12px;font-weight:400;color:var(--t2);letter-spacing:.04em;margin-top:10px;transition:color var(--dur) ease}
+.impact-delta{display:inline-block;margin-top:12px;padding:4px 12px;border-radius:100px;background:rgba(var(--pr),var(--pg),var(--pb),.12);font-family:var(--font-b);font-size:11px;font-weight:600;color:var(--ac);letter-spacing:.04em}
+.impact-card.opportunity .impact-num{font-size:clamp(36px,4vw,56px);color:var(--t2)}
+.impact-card.opportunity .impact-label{color:var(--t3)}
+.impact-insight{margin-top:0;padding:20px 28px;background:var(--acd);border:1px solid var(--acb);border-radius:var(--r);font-size:14px;font-weight:300;line-height:1.72;color:var(--t2);transition:background var(--dur) ease}
+.impact-insight strong{font-weight:600;color:var(--t1);transition:color var(--dur) ease}
+.impact-table{width:100%;border-collapse:collapse;margin-top:36px}
+.impact-table th{font-family:var(--font-b);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);padding:12px 20px;text-align:left;border-bottom:1px solid var(--bor);transition:color var(--dur) ease}
+.impact-table td{font-family:var(--font-b);font-size:14px;font-weight:300;color:var(--t2);padding:16px 20px;border-bottom:1px solid var(--bor);transition:color var(--dur) ease,border-color var(--dur) ease}
+.impact-table td:first-child{font-weight:500;color:var(--t1)}
+.impact-table td.good{font-weight:600;color:var(--ac)}
+.impact-table tr:last-child td{border-bottom:none}
+.impact-table tr:hover td{background:var(--acd)}
+
+/* ============================================================
+   LEARNINGS
+============================================================ */
+.learning-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-bottom:44px}
+.learning-card{background:var(--surf);border:1px solid var(--bor);border-radius:var(--r);padding:32px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background var(--dur) ease,border-color .3s,transform .3s var(--ease)}
+.learning-card:hover{transform:translateY(-4px);border-color:var(--acb)}
+.learning-num{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--ac);text-transform:uppercase;margin-bottom:16px;display:block;transition:color var(--dur) ease}
+.learning-text{font-size:clamp(14px,1.3vw,16px);font-weight:400;line-height:1.68;color:var(--t1);transition:color var(--dur) ease}
+.learning-quote{text-align:center;padding:0 var(--pad) 80px;max-width:700px;margin:0 auto}
+.learning-quote p{font-family:var(--font-a);font-style:italic;font-weight:300;font-size:clamp(18px,2vw,26px);line-height:1.5;color:var(--t2);transition:color var(--dur) ease}
+.learning-quote p em{color:var(--ac)}
+
+/* ============================================================
+   NEXT / CTA
+============================================================ */
+.next-zone{background:var(--bc);padding:88px var(--pad);text-align:center;position:relative;overflow:hidden;transition:background var(--dur) ease}
+.next-zone::before{content:"";position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(var(--pr),var(--pg),var(--pb),.10) 0%,transparent 65%);pointer-events:none}
+.next-tag{font-family:var(--font-b);font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);display:block;margin-bottom:20px;transition:color var(--dur) ease}
+.next-h2{font-family:var(--font-d);font-size:clamp(28px,4vw,52px);font-weight:800;letter-spacing:-.035em;line-height:.98;color:var(--tc);margin-bottom:14px;transition:color var(--dur) ease}
+.next-h2 em{font-family:var(--font-a);font-style:italic;font-weight:300;color:var(--ac)}
+.next-sub{font-size:15px;font-weight:300;color:var(--tc2);margin-bottom:44px;transition:color var(--dur) ease}
+.btn-pri{display:inline-flex;align-items:center;gap:8px;padding:15px 36px;border-radius:100px;background:var(--ac);color:#fff;font-family:var(--font-b);font-size:13px;font-weight:500;letter-spacing:.04em;margin-bottom:36px;box-shadow:0 0 18px 4px rgba(var(--pr),var(--pg),var(--pb),.38);transition:opacity .2s,transform .2s var(--ease),background var(--dur) ease;animation:cta-glow 2.8s ease-in-out infinite}
+@keyframes cta-glow{0%,100%{box-shadow:0 0 18px 4px rgba(var(--pr),var(--pg),var(--pb),.38),0 0 40px 8px rgba(var(--pr),var(--pg),var(--pb),.18)}50%{box-shadow:0 0 28px 8px rgba(var(--pr),var(--pg),var(--pb),.55),0 0 60px 16px rgba(var(--pr),var(--pg),var(--pb),.28)}}
+.btn-pri:hover{opacity:.88;transform:translateY(-2px)}
+.next-links{display:flex;justify-content:center;gap:32px}
+.next-link{font-family:var(--font-b);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--tc2);padding:12px 4px;min-height:44px;display:flex;align-items:center;transition:color .2s}
+.next-link:hover{color:var(--tc)}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer{background:var(--bf);padding:20px var(--pad);text-align:center;position:relative;z-index:3;transition:background var(--dur) ease}
+footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255,255,255,.38);letter-spacing:.06em}
+
+/* ============================================================
+   RESPONSIVE — 6 breakpoints
+============================================================ */
+@media(min-width:1440px){
+  .zi,.cs-hero-content{padding:0 56px;max-width:1240px}
+}
+@media(min-width:1280px) and (max-width:1439px){
+  .nav-inner{padding:20px 48px}
+  .nav.scrolled .nav-inner{padding:14px 48px}
+  .zone{padding:88px 48px}
+  .cs-hero-content{padding:0 48px}
+  .next-zone{padding:80px 48px}
+  footer{padding:20px 48px}
+}
+@media(min-width:1024px) and (max-width:1279px){
+  .nav-inner{padding:18px 40px}
+  .nav.scrolled .nav-inner{padding:12px 40px}
+  .zone{padding:80px 40px}
+  .cs-hero-content{padding:0 40px}
+  .next-zone{padding:72px 40px}
+  footer{padding:18px 40px}
+}
+@media(min-width:768px) and (max-width:1023px){
+  .nav-inner{padding:16px 32px}
+  .nav.scrolled .nav-inner{padding:12px 32px}
+  .zone{padding:72px 32px}
+  .cs-hero-content{padding:0 32px}
+  .context-grid{grid-template-columns:1fr;gap:44px}
+  .impact-metrics{grid-template-columns:1fr 1fr}
+  .impact-card:last-child{grid-column:span 2}
+  .learning-cards{grid-template-columns:1fr}
+  .next-zone{padding:64px 32px}
+  footer{padding:18px 32px}
+  .cs-hero{padding:0 0 64px}
+}
+@media(max-width:767px){
+  body{cursor:auto}
+  .c-dot,.c-ring,.c-glow{display:none}
+  .nav-right-cs{display:none}
+  .nav-ham{display:flex}
+  .nav-inner{padding:14px 24px}
+  .nav.scrolled .nav-inner{padding:10px 24px}
+  .nav-center{display:none}
+  .zone{padding:64px 24px}
+  .cs-hero{padding:0 0 52px}
+  .cs-hero-content{padding:0 24px}
+  .context-grid{grid-template-columns:1fr;gap:36px}
+  .problem-cards{grid-template-columns:1fr}
+  .persona-grid{grid-template-columns:1fr}
+  .variant-grid{grid-template-columns:1fr}
+  .impact-metrics{grid-template-columns:1fr}
+  .learning-cards{grid-template-columns:1fr}
+  .decision-row{grid-template-columns:50px 1fr;gap:18px}
+  .insight-callout{padding:52px 24px}
+  .learning-quote{padding:0 24px 64px}
+  .next-zone{padding:64px 24px}
+  footer{padding:16px 24px}
+  .next-links{gap:16px;flex-wrap:wrap;justify-content:center}
+}
+@media(max-width:479px){
+  .nav-inner{padding:12px 16px}
+  .nav.scrolled .nav-inner{padding:10px 16px}
+  .zone{padding:56px 16px}
+  .cs-hero-content{padding:0 16px}
+  .metric-pill{padding:8px 14px}
+  .decision-row{grid-template-columns:1fr;gap:8px}
+  .decision-num{display:none}
+  .next-zone{padding:56px 16px}
+  footer{padding:14px 16px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.3s !important}
+  .grain,.btn-pri{animation:none !important}
+  .rv{opacity:1 !important;transform:none !important}
+  .cs-hero-h1,.cs-hero-sub,.cs-hero-chips,.cs-hero-metrics,.cs-hero-scroll{opacity:1 !important;transform:none !important}
+  .cs-hero-bg{transform:scale(1) !important}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to main content</a>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="c-dot" id="cDot" aria-hidden="true"></div>
+<div class="c-ring" id="cRing" aria-hidden="true"></div>
+<div class="c-glow" id="cGlow" aria-hidden="true"></div>
+
+<nav class="nav" id="nav" aria-label="Case study navigation">
+  <div class="nav-bg" aria-hidden="true"></div>
+  <div class="nav-inner">
+    <a href="../index.html#work" class="nav-back" aria-label="Back to work section">
+      <i class="ph-thin ph-arrow-left" aria-hidden="true"></i>Work
+    </a>
+    <span class="nav-center">Abhimanyu Arya &nbsp;·&nbsp; <span>Navi</span></span>
+    <div class="nav-right-cs">
+      <a href="mailto:abhimanyuaryawork@gmail.com" class="nav-cs-link">Let's talk →</a>
+    </div>
+    <button class="nav-ham" id="navHam" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navMob">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-mob" id="navMob" role="dialog" aria-modal="true" aria-label="Navigation">
+  <a href="../index.html#work" onclick="closeMob()">← Back to Work</a>
+  <a href="../index.html#about" onclick="closeMob()">About</a>
+  <a href="mailto:abhimanyuaryawork@gmail.com" onclick="closeMob()">Let's talk</a>
+</div>
+
+<main id="main">
+
+  <!-- ══ ZONE 1: HERO ══════════════════════════════════════════ -->
+  <section class="cs-hero" aria-label="Case study introduction">
+    <div class="cs-hero-bg" id="heroBg" aria-hidden="true"></div>
+    <div class="cs-hero-overlay" aria-hidden="true"></div>
+    <div class="cs-hero-content">
+      <div class="cs-hero-chips" id="heroChips">
+        <span class="chip accent"><span class="chip-dot"></span>FinTech · Navi</span>
+        <span class="chip">Health Insurance</span>
+        <span class="chip">Product Design</span>
+        <span class="chip">2023</span>
+        <span class="chip">8 min read</span>
+      </div>
+      <h1 class="cs-hero-h1" id="heroH1">Making health insurance<br>renewal <em>actually happen.</em></h1>
+      <p class="cs-hero-sub" id="heroSub">Less than 12% of users renewed through the app. The rest called ops. That was the whole problem — and the whole opportunity.</p>
+      <div class="cs-hero-metrics" id="heroMetrics">
+        <div class="metric-pill">
+          <span class="metric-pill-val">68%</span>
+          <span class="metric-pill-arrow">→</span>
+          <span class="metric-pill-val">95%</span>
+          <span class="metric-pill-label">In-app renewals</span>
+        </div>
+        <div class="metric-pill">
+          <span class="metric-pill-val">&lt;12%</span>
+          <span class="metric-pill-arrow">→</span>
+          <span class="metric-pill-val">40%</span>
+          <span class="metric-pill-label">Early renewals</span>
+        </div>
+        <div class="metric-pill">
+          <span class="metric-pill-val">20</span>
+          <span class="metric-pill-label">User interviews</span>
+        </div>
+      </div>
+    </div>
+    <div class="cs-hero-scroll" id="heroScroll" aria-hidden="true">
+      <span class="cs-hero-scroll-text">Scroll</span>
+      <span class="cs-hero-scroll-line"></span>
+    </div>
+  </section>
+
+  <!-- ══ ZONE 2: CONTEXT ═══════════════════════════════════════ -->
+  <section class="zone zone-alt" id="context" aria-label="Project context">
+    <div class="zi">
+      <span class="s-tag rv">The Situation</span>
+      <h2 class="s-h2 rv d1">Renewal existed.<br>It just didn't <em>work.</em></h2>
+      <div class="context-grid">
+        <div class="context-body">
+          <p class="rv d2">Health insurance renewal is time-critical. Miss the 12th-month premium and the policy lapses — no claims, no benefits. At Navi, users knew this. They just didn't trust the app to handle it.</p>
+          <p class="rv d3">The app had a renewal flow. But almost nobody used it. Ops teams were handling what should have been fully self-serve. Users were calling in, relying on external portals, and delaying until the very last moment. That's not a UX problem — that's a business-critical breakdown.</p>
+        </div>
+        <div class="stat-cards rv d2">
+          <div class="stat-card">
+            <div class="stat-num">68%</div>
+            <div class="stat-label">Renewals happening via the app — but not truly self-serve end-to-end</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">&lt;12%</div>
+            <div class="stat-label">Users completing renewal through the intended in-app flow (heavy ops/portal reliance)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">85%</div>
+            <div class="stat-label">Delayed until R11 — the 11th month — pushing lapsation risk to its peak</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ZONE 3: PROBLEM ═══════════════════════════════════════ -->
+  <section class="zone" id="problem" aria-label="The problem">
+    <div class="zi">
+      <span class="s-tag rv">The Problem</span>
+      <h2 class="s-h2 rv d1">A failure for users.<br>A risk for the <em>business.</em></h2>
+      <div class="problem-cards rv d2">
+        <div class="problem-card">
+          <i class="ph-thin ph-user problem-card-icon" aria-hidden="true"></i>
+          <h3 class="problem-card-title">Users were confused and anxious.</h3>
+          <p class="problem-card-body">What changes at renewal? What stays the same? How close am I to lapsation? The experience gave no clear answers — so people delayed, second-guessed, or called ops instead.</p>
+        </div>
+        <div class="problem-card">
+          <i class="ph-thin ph-buildings problem-card-icon" aria-hidden="true"></i>
+          <h3 class="problem-card-title">The business was absorbing the cost.</h3>
+          <p class="problem-card-body">Late renewals and ops dependency meant higher lapsation risk, significant operational overhead, and zero confidence that renewals could scale as a reliable, self-serve product.</p>
+        </div>
+      </div>
+      <blockquote class="blockquote rv d3">
+        <p>"Users must renew on time to keep their policy active — but the experience was fragmented and unclear, leading to delayed renewals, ops reliance, and rising lapsation risk."</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ══ ZONE 4: RESEARCH ══════════════════════════════════════ -->
+  <section class="zone zone-alt" id="research" aria-label="Research and insights">
+    <div class="zi">
+      <span class="s-tag rv">Research</span>
+      <h2 class="s-h2 rv d1">20 conversations.<br>One <em>insight</em> that changed everything.</h2>
+      <p class="s-sub rv d2">Navi's research team ran focused interviews — phone and Zoom, 20 participants. I synthesized the patterns to find what actually needed solving.</p>
+
+      <figure class="zoom-img rv d2">
+        <img src="navi/Zoom.webp" alt="Research sessions conducted over Zoom — 20 participant interviews, phone and video" loading="lazy">
+      </figure>
+      <p class="zoom-caption rv">20 participant interviews across phone and Zoom — feedback on policy understanding and the existing app experience.</p>
+
+      <div class="persona-grid rv d3">
+        <div class="persona-card">
+          <img src="navi/User_Persona_1.webp" alt="User Persona 1 — primary renewal persona synthesized from research" loading="lazy">
+        </div>
+        <div class="persona-card">
+          <img src="navi/User_Persona_2.webp" alt="User Persona 2 — secondary renewal persona synthesized from research" loading="lazy">
+        </div>
+      </div>
+
+      <div class="insight-chips rv d3">
+        <span class="insight-chip">Clear policy info upfront</span>
+        <span class="insight-chip">Fast + obvious renewal flow</span>
+        <span class="insight-chip">Simple UX beats clever features</span>
+        <span class="insight-chip">Timely reminders matter</span>
+        <span class="insight-chip">Personalisation builds trust</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- The big insight callout — full bleed, outside zi container -->
+  <div class="insight-callout" aria-label="Key research insight">
+    <span class="insight-callout-label rv">The real job-to-be-done</span>
+    <p class="insight-callout-text rv d1">"The job wasn't <em>'renew'.</em><br>It was: help me avoid lapsation<br>confidently, with minimum effort."</p>
+  </div>
+
+  <!-- ══ ZONE 5: EXPLORATION ════════════════════════════════════ -->
+  <section class="zone" id="exploration" aria-label="Design exploration">
+    <div class="zi">
+      <span class="s-tag rv">Exploration</span>
+      <h2 class="s-h2 rv d1">Four directions.<br>One <em>winner.</em></h2>
+      <p class="s-sub rv d2">We explored 4 design variants before aligning with product and engineering. The decision balanced user confidence, simplicity, and rollout feasibility.</p>
+
+      <div class="variant-grid rv d3">
+        <div class="variant-card">
+          <div class="variant-thumb">
+            <img src="navi/Variant_1.webp" alt="Variant 1 — first design direction explored for renewal flow" loading="lazy">
+          </div>
+          <div class="variant-body">
+            <span class="variant-label">Variant 01</span>
+            <h3 class="variant-title">Information-first approach</h3>
+            <p class="variant-why"><strong>Explored because:</strong> users said they lacked context before renewing.<br><strong>Moved past:</strong> too many screens increased drop-off before the key action.</p>
+          </div>
+        </div>
+        <div class="variant-card">
+          <div class="variant-thumb">
+            <img src="navi/Variant_2.webp" alt="Variant 2 — second design direction with progressive disclosure" loading="lazy">
+          </div>
+          <div class="variant-body">
+            <span class="variant-label">Variant 02</span>
+            <h3 class="variant-title">Progressive disclosure flow</h3>
+            <p class="variant-why"><strong>Explored because:</strong> revealed details step-by-step to reduce anxiety.<br><strong>Moved past:</strong> added cognitive load without improving completion rate.</p>
+          </div>
+        </div>
+        <div class="variant-card">
+          <div class="variant-thumb">
+            <img src="navi/Variant_3.webp" alt="Variant 3 — third design direction with contextual nudges" loading="lazy">
+          </div>
+          <div class="variant-body">
+            <span class="variant-label">Variant 03</span>
+            <h3 class="variant-title">Nudge-forward approach</h3>
+            <p class="variant-why"><strong>Explored because:</strong> behavioural prompts could drive earlier renewals.<br><strong>Moved past:</strong> the core flow wasn't reliable enough to layer nudges on top.</p>
+          </div>
+        </div>
+        <div class="variant-card selected">
+          <div class="variant-thumb">
+            <span class="variant-badge" aria-label="Selected design direction">Selected ✓</span>
+            <img src="navi/Variant_4.webp" alt="Variant 4 — selected final design direction" loading="lazy">
+          </div>
+          <div class="variant-body">
+            <span class="variant-label">Variant 04</span>
+            <h3 class="variant-title">Clarity + confidence approach</h3>
+            <p class="variant-why"><strong>Why it won:</strong> clearest renewal status, minimal steps, strongest "I can do this myself" confidence, and highest engineering feasibility for rollout speed.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-selected-reason rv d4">
+        <p><strong>Why Variant 4 and not the others:</strong> We optimised for low cognitive load and fast completion — then used targeted communication to cover any trust gaps. Simplicity moves people. Complexity stalls them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ZONE 6: SOLUTION ═══════════════════════════════════════ -->
+  <section class="zone zone-alt" id="solution" aria-label="The solution">
+    <div class="zi">
+      <span class="s-tag rv">Solution</span>
+      <h2 class="s-h2 rv d1">Renewal as a product.<br>End-to-end. In-app. <em>Self-serve.</em></h2>
+
+      <div class="solution-principles rv d2">
+        <span class="principle-chip"><i class="ph-thin ph-magnifying-glass" aria-hidden="true"></i>Clarity over cleverness</span>
+        <span class="principle-chip"><i class="ph-thin ph-check-circle" aria-hidden="true"></i>End-to-end in-app</span>
+        <span class="principle-chip"><i class="ph-thin ph-lightning" aria-hidden="true"></i>Under 3-minute renewal</span>
+        <span class="principle-chip"><i class="ph-thin ph-bell" aria-hidden="true"></i>Foundation for nudges</span>
+      </div>
+
+      <div class="video-wrap rv d3">
+        <video
+          id="solutionVideo"
+          src="navi/Renewals.mp4"
+          muted
+          loop
+          playsinline
+          preload="none"
+          aria-label="Working prototype walkthrough of the final Navi renewal flow"
+        ></video>
+      </div>
+      <p class="video-caption rv">Working prototype — the complete renewal flow as designed and shipped at Navi.</p>
+
+      <div class="final-img rv d3">
+        <img src="navi/Final.webp" alt="Final shipped design — the Navi health insurance renewal experience" loading="lazy">
+      </div>
+      <p class="final-caption rv">Final shipped design — the renewal entry point inside the Navi app.</p>
+    </div>
+  </section>
+
+  <!-- ══ ZONE 7: DECISIONS ══════════════════════════════════════ -->
+  <section class="zone" id="decisions" aria-label="Key design decisions">
+    <div class="zi">
+      <span class="s-tag rv">Key Decisions</span>
+      <h2 class="s-h2 rv d1">What we chose.<br>And <em>why.</em></h2>
+
+      <div class="decision-list">
+        <div class="decision-row rv d1">
+          <div class="decision-num" aria-hidden="true">01</div>
+          <div>
+            <h3 class="decision-q">Why simplify instead of adding more reassurance UI?</h3>
+            <p class="decision-a">More screens = more drop-off. We optimised for low cognitive load and fast completion, using contextual hints and communications to build trust — not more interface.</p>
+          </div>
+        </div>
+        <div class="decision-row rv d2">
+          <div class="decision-num" aria-hidden="true">02</div>
+          <div>
+            <h3 class="decision-q">Why fix the core flow before adding nudges?</h3>
+            <p class="decision-a">Nudges don't fix a broken flow — they amplify it. We made renewal work reliably end-to-end first, then used real post-launch data to plan targeted behaviour nudges.</p>
+          </div>
+        </div>
+        <div class="decision-row rv d3">
+          <div class="decision-num" aria-hidden="true">03</div>
+          <div>
+            <h3 class="decision-q">Why Variant 4 over the other three?</h3>
+            <p class="decision-a">It best balanced clarity of renewal status, minimal steps to completion, the strongest "I can do this myself" confidence signal, and engineering feasibility for rollout speed.</p>
+          </div>
+        </div>
+        <div class="decision-row rv d4">
+          <div class="decision-num" aria-hidden="true">04</div>
+          <div>
+            <h3 class="decision-q">What did we intentionally leave out of V1?</h3>
+            <p class="decision-a">We didn't over-index on last-minute renewers. We shipped the foundational system first and used real data to identify the next lever — instead of designing for assumptions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ZONE 8: IMPACT ════════════════════════════════════════ -->
+  <section class="zone zone-alt" id="impact" aria-label="Impact and results">
+    <div class="zi">
+      <span class="s-tag rv">Impact</span>
+      <h2 class="s-h2 rv d1">The numbers moved.<br>And one told us what to do <em>next.</em></h2>
+
+      <div class="impact-metrics rv d2">
+        <div class="impact-card highlight">
+          <div class="impact-before">68% baseline</div>
+          <span class="impact-arrow">↑</span>
+          <div class="impact-num" data-count="95" data-suffix="%">95%</div>
+          <div class="impact-label">In-app renewals</div>
+          <span class="impact-delta">~40% uplift</span>
+        </div>
+        <div class="impact-card highlight">
+          <div class="impact-before">&lt;12% baseline</div>
+          <span class="impact-arrow">↑</span>
+          <div class="impact-num" data-count="40" data-suffix="%">40%</div>
+          <div class="impact-label">Early renewals at R11</div>
+          <span class="impact-delta">~3× growth</span>
+        </div>
+        <div class="impact-card opportunity">
+          <div class="impact-before">Post-launch insight</div>
+          <span class="impact-arrow" style="color:var(--t3)">→</span>
+          <div class="impact-num" data-count="25" data-suffix="%">25%</div>
+          <div class="impact-label">Still renewing at lapsation</div>
+          <span class="impact-delta" style="background:var(--ga);color:var(--t2)">Next opportunity</span>
+        </div>
+      </div>
+
+      <div class="impact-insight rv d3">
+        <strong>What this means:</strong> Renewals moved fully in-app and behaviour shifted earlier — but 25% still wait until the last moment. That's not a failure. That's the next product problem, clearly defined by real data.
+      </div>
+
+      <table class="impact-table rv d4" aria-label="Impact metrics summary">
+        <thead>
+          <tr>
+            <th scope="col">Metric</th>
+            <th scope="col">Before</th>
+            <th scope="col">After</th>
+            <th scope="col">Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>In-app renewals</td>
+            <td>68%</td>
+            <td class="good">95%</td>
+            <td>~40% uplift</td>
+          </tr>
+          <tr>
+            <td>Early renewals at R11</td>
+            <td>&lt;12%</td>
+            <td class="good">40%</td>
+            <td>~3× growth</td>
+          </tr>
+          <tr>
+            <td>Lapsation-window renewals</td>
+            <td>—</td>
+            <td>25%</td>
+            <td>Next scope identified</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ ZONE 9: LEARNINGS ══════════════════════════════════════ -->
+  <section class="zone" id="learnings" aria-label="Learnings">
+    <div class="zi">
+      <span class="s-tag rv">What I Learned</span>
+      <h2 class="s-h2 rv d1">Ship the system.<br>Then <em>optimise behaviour.</em></h2>
+
+      <div class="learning-cards rv d2">
+        <div class="learning-card">
+          <span class="learning-num">Insight 01</span>
+          <p class="learning-text">Renewals are trust moments, not just payment steps. The experience has to feel safe before users will complete it on their own.</p>
+        </div>
+        <div class="learning-card">
+          <span class="learning-num">Insight 02</span>
+          <p class="learning-text">The fastest way to reduce lapsation is clarity and completion inside the app — not more UI, more screens, or more reassurance copy.</p>
+        </div>
+        <div class="learning-card">
+          <span class="learning-num">Insight 03</span>
+          <p class="learning-text">Real data from a shipped product is worth more than assumptions from research. Ship the foundation. Let the data tell you what to build next.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="learning-quote rv">
+    <p>"When the flow is trustworthy,<br>users don't need ops —<br>they need <em>confidence.</em>"</p>
+  </div>
+
+  <!-- ══ ZONE 10: NEXT + CTA ════════════════════════════════════ -->
+  <section class="next-zone" aria-label="Get in touch">
+    <span class="next-tag rv">Let's connect</span>
+    <h2 class="next-h2 rv d1">Open to what<br>comes <em>next.</em></h2>
+    <p class="next-sub rv d2">Genuinely curious about your story too.</p>
+    <a href="mailto:abhimanyuaryawork@gmail.com" class="btn-pri rv d3">Start a conversation &nbsp;→</a>
+    <div class="next-links rv d4">
+      <a href="https://www.linkedin.com/in/abhimanyuarya17/" target="_blank" rel="noopener" class="next-link">LinkedIn ↗</a>
+      <a href="https://www.behance.net/AbhimanyuArya" target="_blank" rel="noopener" class="next-link">Behance ↗</a>
+      <a href="../Abhimanyu_Resume.pdf" download class="next-link">Resume ↗</a>
+    </div>
+  </section>
+
+</main>
+
+<footer role="contentinfo">
+  <p>© 2026 Abhimanyu Arya</p>
+</footer>
+
+<script>
+'use strict';
+
+/* ══ 1. MODE ══════════════════════════════════════ */
+(function(){
+  var h=new Date().getHours();
+  var m=h>=5&&h<9?'brahmamuhurta':h>=9&&h<16?'dhoop':h>=16&&h<19?'sandhya':'raat';
+  document.documentElement.setAttribute('data-mode',m);
+})();
+
+/* ══ 2. HERO IMAGE LOAD ══════════════════════════ */
+(function(){
+  var bg=document.getElementById('heroBg');
+  var img=new Image();
+  img.onload=function(){if(bg)bg.classList.add('loaded');};
+  img.src='navi/Final.webp';
+  // Trigger hero animations on load
+  setTimeout(function(){
+    var els=['heroChips','heroH1','heroSub','heroMetrics','heroScroll'];
+    els.forEach(function(id,i){
+      setTimeout(function(){
+        var el=document.getElementById(id);
+        if(el)el.classList.add('on');
+      },i*120);
+    });
+  },200);
+})();
+
+/* ══ 3. PROGRESS BAR ═════════════════════════════ */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar)return;
+  window.addEventListener('scroll',function(){
+    var st=window.scrollY||window.pageYOffset;
+    var dh=document.documentElement.scrollHeight-window.innerHeight;
+    var pct=dh>0?Math.min((st/dh)*100,100):0;
+    bar.style.width=pct+'%';
+  },{passive:true});
+})();
+
+/* ══ 4. CURSOR ════════════════════════════════════ */
+(function(){
+  if(window.innerWidth<768||window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var dot=document.getElementById('cDot'),ring=document.getElementById('cRing'),glow=document.getElementById('cGlow');
+  var mx=0,my=0,rx=0,ry=0,gx=0,gy=0,last=0;
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX;my=e.clientY;
+    dot.style.left=mx+'px';dot.style.top=my+'px';
+    var now=Date.now();
+    if(now-last>42){last=now;var sp=document.createElement('div');sp.className='sparkle';
+      var sz=Math.random()*3+1.5;sp.style.cssText='left:'+mx+'px;top:'+my+'px;width:'+sz+'px;height:'+sz+'px';
+      document.body.appendChild(sp);setTimeout(function(){sp.parentNode&&sp.parentNode.removeChild(sp);},520);}
+  },{passive:true});
+  (function af(){
+    rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';
+    gx+=(mx-gx)*.08;gy+=(my-gy)*.08;glow.style.left=gx+'px';glow.style.top=gy+'px';
+    requestAnimationFrame(af);
+  })();
+  document.addEventListener('mouseover',function(e){
+    var lnk=e.target.closest('a,button,.variant-card,.persona-card,.stat-card,.problem-card,.learning-card,.impact-card');
+    if(lnk){ring.classList.add('big');glow.classList.add('big');}
+    else{ring.classList.remove('big');glow.classList.remove('big');}
+  });
+})();
+
+/* ══ 5. LENIS SMOOTH SCROLL ══════════════════════ */
+(function(){
+  if(typeof Lenis==='undefined')return;
+  var l=new Lenis({duration:1.35,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t));}});
+  (function raf(t){l.raf(t);requestAnimationFrame(raf);})();
+})();
+
+/* ══ 6. SCROLL REVEALS ═══════════════════════════ */
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('on');});return;}
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('on');obs.unobserve(en.target);}
+    });
+  },{threshold:.09,rootMargin:'0px 0px -28px 0px'});
+  els.forEach(function(e){obs.observe(e);});
+})();
+
+/* ══ 7. METRIC COUNT-UP ══════════════════════════ */
+(function(){
+  var noM=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var mEls=document.querySelectorAll('[data-count]');
+  if(!('IntersectionObserver' in window)){return;}
+  var mObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){countUp(en.target);mObs.unobserve(en.target);}
+    });
+  },{threshold:.6});
+  mEls.forEach(function(e){mObs.observe(e);});
+  function countUp(el){
+    var target=+el.dataset.count,suffix=el.dataset.suffix||'';
+    if(noM){el.textContent=target+suffix;return;}
+    var dur=1600,start=performance.now();
+    (function tick(now){
+      var p=Math.min((now-start)/dur,1),ease=1-Math.pow(1-p,3);
+      el.textContent=Math.floor(ease*target)+suffix;
+      if(p<1)requestAnimationFrame(tick);else el.textContent=target+suffix;
+    })(start);
+  }
+})();
+
+/* ══ 8. VIDEO AUTOPLAY ON SCROLL ═════════════════ */
+(function(){
+  var vid=document.getElementById('solutionVideo');
+  if(!vid)return;
+  if(!('IntersectionObserver' in window)){vid.load();return;}
+  var vObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        if(vid.readyState===0)vid.load();
+        vid.play().catch(function(){});
+      } else {
+        vid.pause();
+      }
+    });
+  },{threshold:0.3});
+  vObs.observe(vid);
+  vid.addEventListener('click',function(){
+    if(vid.paused)vid.play();else vid.pause();
+  });
+})();
+
+/* ══ 9. NAV SCROLL STATE ═════════════════════════ */
+(function(){
+  var nav=document.getElementById('nav');
+  if(!nav)return;
+  var scrolled=false;
+  window.addEventListener('scroll',function(){
+    var sy=window.scrollY||window.pageYOffset;
+    if(sy>80&&!scrolled){nav.classList.add('scrolled');scrolled=true;}
+    else if(sy<=80&&scrolled){nav.classList.remove('scrolled');scrolled=false;}
+  },{passive:true});
+})();
+
+/* ══ 10. MOBILE NAV ══════════════════════════════ */
+(function(){
+  var ham=document.getElementById('navHam'),mob=document.getElementById('navMob');
+  if(!ham||!mob)return;
+  ham.addEventListener('click',function(){
+    var o=mob.classList.toggle('open');
+    ham.classList.toggle('open',o);
+    ham.setAttribute('aria-expanded',o?'true':'false');
+    document.body.style.overflow=o?'hidden':'';
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&mob.classList.contains('open')){closeMob();ham.focus();}
+  });
+})();
+function closeMob(){
+  var ham=document.getElementById('navHam'),mob=document.getElementById('navMob');
+  if(!ham||!mob)return;
+  mob.classList.remove('open');ham.classList.remove('open');
+  ham.setAttribute('aria-expanded','false');document.body.style.overflow='';
+}
+
+/* ══ 11. KEYBOARD SUPPORT ════════════════════════ */
+document.addEventListener('keydown',function(){document.body.classList.add('kb');});
+document.addEventListener('mousedown',function(){document.body.classList.remove('kb');});
+</script>
+</body>
+</html>
