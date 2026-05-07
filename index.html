@@ -1092,7 +1092,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
 /* ══ 5. INTRO SEQUENCE ═══════════════════════════ */
 (function(){/* Skip intro if already seen OR coming from case study */
   var params = new URLSearchParams(window.location.search);
-  var alreadySeen = localStorage.getItem('introSeen');
+  var alreadySeen = sessionStorage.getItem('introSeen');
   if(params.get('skip') === 'true' || alreadySeen) {
     var intro = document.getElementById('intro');
     var site = document.getElementById('site');
@@ -1113,7 +1113,7 @@ footer p{font-family:var(--font-b);font-size:11px;font-weight:300;color:rgba(255
   setTimeout(function(){cta.classList.add('show');},noM?150:3500);
   function enter(){
     if(done)return;done=true;
-    localStorage.setItem('introSeen','1');
+    sessionStorage.setItem('introSeen','1');
     if(noM){intro.style.display='none';if(window._onIntroExit)window._onIntroExit();site.classList.add('on');afterIntro();return;}
     bg.style.transition='opacity .7s ease,transform 1.4s ease';
     bg.style.transform='scale(1.08)';bg.style.opacity='0';
